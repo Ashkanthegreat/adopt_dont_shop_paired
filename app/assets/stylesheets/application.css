@@ -1,0 +1,113 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+#header {
+  background-color: lightblue;
+}
+
+.headerLinks {
+  padding-left: 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+}
+
+.headerPic {
+  max-height: 15%;
+}
+
+body {
+  background-color: #6d7785;
+}
+
+p {
+  margin: 2px;
+}
+
+.siteLinks {
+  text-decoration: none;
+  color: black;
+}
+
+.shelterLinks {
+  text-decoration: none;
+  color: #19d1e6;
+}
+
+.shelterIndexShelters {
+  margin: 5px;
+  display: inline-block;
+  box-sizing: content-box;
+  width: 225px;
+  text-align: center;
+}
+
+.petContainer {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+  width: 600px;
+}
+
+.containerText {
+  margin: 15px;
+  font-size: 20px;
+}
+
+
+.shelterIndex {
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.showPageContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.showPageText {
+  margin-top: 25px;
+  padding: 5px;
+  font-size: 20px;
+}
+
+#showPetContainer {
+  display: flex;
+  margin-left: 100px;
+  margin-top: 25px;
+}
+
+.showContainerText {
+  font-size: 20px;
+  margin-left: 20px;
+}
+
+.updateLinks {
+  color: blue;
+  text-decoration: none;
+}
+
+.deleteLinks {
+  color: blue;
+  text-decoration: none;
+}
+
+.createLinks {
+  color: lightblue;
+  text-decoration: none;
+}

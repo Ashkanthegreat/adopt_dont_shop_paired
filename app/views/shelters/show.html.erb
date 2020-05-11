@@ -1,0 +1,14 @@
+<div class="showPageContainer">
+  <div class="showPageText">
+    <h1><%= link_to "#{@shelter.name}", "/shelters/#{@shelter.id}", class: "siteLinks" %></h1>
+    <h4><%= link_to "See Shelter's Pets",  "/shelters/#{@shelter.id}/pets", class: "siteLinks"%></h4>
+
+    <p><%= @shelter.address %></p>
+    <p><%= @shelter.city %></p>
+    <p><%= @shelter.state %></p>
+    <p><%= @shelter.zip %></p>
+
+    <%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit", class: "updateLinks" %><br>
+    <%= link_to "Delete Shelter", "/shelters/#{@shelter.id}", class: "deleteLinks", method: :delete %>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div id="showPetContainer">
+  <%= image_tag(@pet.image, size: "300x250") %>
+  <div class="showContainerText">
+    <h1><%= link_to "#{@pet.name}", "/pets/#{@pet.id}", class: "siteLinks"  %></h1>
+    <p>Description: <%= @pet.description %></p>
+    <p>Age: <%= @pet.approximate_age %></p>
+    <p>Sex: <%= @pet.sex %></p>
+    <p>Shelter: <%= link_to " #{@pet.shelter.name}", "/shelters/#{@pet.shelter.id}", class: "siteLinks" %></p>
+    <p>Adoption Status: <%= @pet.adoption_status %></p>
+    <%= link_to "Update Pet", "/pets/#{@pet.id}/edit", class: "updateLinks"  %><br>
+    <%= link_to "Delete Pet", "/pets/#{@pet.id}", class: "deleteLinks", method: :delete %>
+  </div>
+</div>

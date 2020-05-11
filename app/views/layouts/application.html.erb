@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AdoptDontShop</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <div id="header">
+      <%= link_to "Pet Index", "/pets", class: "headerLinks" %>
+      <%= link_to "Shelter Index", "/shelters", class: "headerLinks" %>
+    </div>
+    <div>
+      <%= image_tag("mountain_header.jpg", id: "headerPic", height: 200, width: 1424 ) %>
+    </div>
+    <%= yield %>
+  </body>
+</html>
