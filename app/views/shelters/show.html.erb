@@ -10,5 +10,15 @@
 
     <%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit", class: "updateLinks" %><br>
     <%= link_to "Delete Shelter", "/shelters/#{@shelter.id}", class: "deleteLinks", method: :delete %>
+
+    <%= @shelter.reviews.each do |review| %>
+
+      <p><%= review.title %></p>
+      <p><%= review.rating %></p>
+      <p><%= review.content %></p>
+      <% if review.picture != nil %>
+        <p><%= review.picture %></p>
+      <% end %>
+    <% end %>
   </div>
 </div>
