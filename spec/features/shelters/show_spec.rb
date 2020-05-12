@@ -59,4 +59,26 @@ describe "Shelters show page", type: :feature do
     expect(page).to have_content(@review1.picture)
     expect(page).to have_content(@review2.picture)
   end
+
+  it "can see a link to add a review" do
+  visit "shelters/#{@shelter1.id}"
+
+  click_on "New Review"
+  expect(current_path).to eq("/shelters/#{@shelter1.id}/reviews/new")
+
+  fill_in :title, with: "Good Shelter"
+  fill_in :rating, with: "4"
+  fill_in :content, with: "Caring people"
+  click_on "Submit Review"
+
+  expect(current_path).to eq("/shelters/#{@shelter1.id}")
+
+  review = Review.last
+  within("#review-#{review.id}") do
+    expect(page).to have_content("Good Shelter")
+    expect(page).to have_content("4")
+    expect(page).to have_content("Caring people")
+    end
+  end
+
 end
