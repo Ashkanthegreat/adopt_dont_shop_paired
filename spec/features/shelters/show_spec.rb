@@ -77,4 +77,18 @@ describe "Shelters show page", type: :feature do
       expect(page).to have_content("I had an amazing experience")
     end
   end
+
+  it "can delete a review" do
+    visit "shelters/#{@shelter1.id}"
+
+    within("#review-#{@review1.id}") do
+      click_on "Delete Review"
+    end
+
+    expect(current_path).to eq("/shelters/#{@shelter1.id}")
+    expect(page).to_not have_content("Great Shelter")
+    expect(page).to_not have_content("I had an amazing experience")
+    expect(page).to have_content("Amazing Rescue")
+    expect(page).to have_content("Super friendly staff")
+  end
 end

@@ -20,6 +20,7 @@
           <p><%= review.picture %></p>
         <% end %>
         <%= link_to "Edit Review", "/shelters/#{@shelter.id}/#{review.id}/edit", class: "updateLinks" %><br>
+        <%= link_to "Delete Review", "/shelters/#{@shelter.id}/#{review.id}", class: "deleteLinks", method: :delete %>
       </section>
     <% end %>
   </div>
