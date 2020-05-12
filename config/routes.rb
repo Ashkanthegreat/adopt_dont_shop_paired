@@ -16,4 +16,8 @@ Rails.application.routes.draw do
   get "/pets/:id/edit", to: "pets#edit"
   patch "/pets/:id", to: "pets#update"
   delete "/pets/:id", to: "pets#destroy"
+  get "/shelters/:id/reviews/new", to: "reviews#new"
+  post "/shelters/:id/reviews", to: "reviews#create"
+
+
 end
