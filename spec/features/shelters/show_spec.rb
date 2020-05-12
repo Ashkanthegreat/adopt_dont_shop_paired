@@ -30,7 +30,7 @@ describe "Shelters show page", type: :feature do
 
     fill_in "Address", with: "2000 Puppy Dr."
 
-    click_on "Update Shelter"
+      click_on "Update Shelter"
 
     expect(page).to have_content("2000 Puppy Dr.")
   end
@@ -58,5 +58,23 @@ describe "Shelters show page", type: :feature do
     expect(page).to have_content(@review2.content)
     expect(page).to have_content(@review1.picture)
     expect(page).to have_content(@review2.picture)
+  end
+
+  it "can edit a review" do
+    visit "shelters/#{@shelter1.id}"
+
+    within("#review-#{@review1.id}") do
+      click_on "Edit Review"
+    end
+
+    fill_in :title, with: "Best Rescue Ever"
+
+    click_on "Update"
+
+    expect(current_path).to eq("/shelters/#{@shelter1.id}")
+    within("#review-#{@review1.id}") do
+      expect(page).to have_content("Best Rescue Ever")
+      expect(page).to have_content("I had an amazing experience")
+    end
   end
 end
