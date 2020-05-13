@@ -59,4 +59,8 @@ class SheltersController < ApplicationController
     redirect_to "/shelters"
   end
 
+  def review 
+
+  end
+
 end
