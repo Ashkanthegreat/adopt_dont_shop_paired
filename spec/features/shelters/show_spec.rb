@@ -57,7 +57,9 @@ describe "Shelters show page", type: :feature do
     expect(page).to have_content(@review1.content)
     expect(page).to have_content(@review2.content)
     expect(page).to have_content(@review1.picture)
-    expect(page).to have_content(@review2.picture)
+    expect(page).to have_xpath("img[contains(@src,#{@review2.picture})]")
+
+    # expect(page).to have_css("img[src*=#{@review2.picture}]")
   end
 
   it "can see a link to add a review" do
@@ -78,7 +80,7 @@ describe "Shelters show page", type: :feature do
     expect(page).to have_content("Good Shelter")
     expect(page).to have_content("4")
     expect(page).to have_content("Caring people")
-    save_and_open_page
+    # save_and_open_page
     end
   end
 
