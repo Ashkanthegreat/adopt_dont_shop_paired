@@ -78,6 +78,7 @@ describe "Shelters show page", type: :feature do
     expect(page).to have_content("Good Shelter")
     expect(page).to have_content("4")
     expect(page).to have_content("Caring people")
+    save_and_open_page
     end
   end
 
