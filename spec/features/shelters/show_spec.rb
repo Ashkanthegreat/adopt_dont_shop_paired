@@ -57,7 +57,7 @@ describe "Shelters show page", type: :feature do
     expect(page).to have_content(@review1.content)
     expect(page).to have_content(@review2.content)
     expect(page).to have_content(@review1.picture)
-    expect(page).to have_xpath("img[contains(@src,#{@review2.picture})]")
+    find("img[src*='https://imgur.com/rjS5VMO']")
 
     # expect(page).to have_css("img[src*=#{@review2.picture}]")
   end
