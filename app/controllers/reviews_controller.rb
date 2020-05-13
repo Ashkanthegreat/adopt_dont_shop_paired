@@ -6,9 +6,14 @@ class ReviewsController < ApplicationController
 
   def update
     review = Review.find(params[:review_id])
-    review.update(review_params)
-    review.save
-    redirect_to "/shelters/#{review.shelter.id}"
+    if review.update(review_params)
+      redirect_to "/shelters/#{review.shelter.id}"
+    else
+      flash[:error] = "Review not updated: Need to fill in title, rating, and content in order to edit a shelter review"
+      redirect_to "/shelters/#{review.shelter.id}/#{review.id}/edit"
+    end
+    # review.update(review_params)
+    # review.save
   end
 
   def destroy

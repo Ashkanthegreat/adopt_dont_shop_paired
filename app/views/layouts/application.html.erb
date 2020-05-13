@@ -16,6 +16,11 @@
     <div>
       <%= image_tag("mountain_header.jpg", id: "headerPic", height: 200, width: 1424 ) %>
     </div>
+
+    <% flash.each do |type, message| %>
+      <p><%= message %></p>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>
