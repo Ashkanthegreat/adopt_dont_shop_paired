@@ -30,7 +30,7 @@ describe "Shelters show page", type: :feature do
 
     fill_in "Address", with: "2000 Puppy Dr."
 
-    click_on "Update Shelter"
+      click_on "Update Shelter"
 
     expect(page).to have_content("2000 Puppy Dr.")
   end
@@ -84,4 +84,48 @@ describe "Shelters show page", type: :feature do
     end
   end
 
+  it "can edit a review" do
+    visit "shelters/#{@shelter1.id}"
+
+    within("#review-#{@review1.id}") do
+      click_on "Edit Review"
+    end
+
+    fill_in :title, with: "Sample Title"
+    click_on "Update Review"
+
+    expect(current_path).to eq("/shelters/#{@shelter1.id}")
+    within("#review-#{@review1.id}") do
+      expect(page).to have_content("Sample Title")
+      expect(page).to have_content("I had an amazing experience")
+    end
+  end
+
+  it "can not edit a review if the user fails to enter a tile, rating, or content" do
+    visit "shelters/#{@shelter1.id}"
+
+    within("#review-#{@review1.id}") do
+      click_on "Edit Review"
+    end
+
+    fill_in :title, with: ""
+    click_on "Update Review"
+
+    expect(current_path).to eq("/shelters/#{@shelter1.id}/#{@review1.id}/edit")
+    expect(page).to have_content("Review not updated: Need to fill in title, rating, and content in order to edit a shelter review")
+  end
+
+  it "can delete a review" do
+    visit "shelters/#{@shelter1.id}"
+
+    within("#review-#{@review1.id}") do
+      click_on "Delete Review"
+    end
+
+    expect(current_path).to eq("/shelters/#{@shelter1.id}")
+    expect(page).to_not have_content("Great Shelter")
+    expect(page).to_not have_content("I had an amazing experience")
+    expect(page).to have_content("Amazing Rescue")
+    expect(page).to have_content("Super friendly staff")
+  end
 end
