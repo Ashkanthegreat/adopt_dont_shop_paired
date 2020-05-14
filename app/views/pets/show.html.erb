@@ -7,6 +7,7 @@
     <p>Sex: <%= @pet.sex %></p>
     <p>Shelter: <%= link_to " #{@pet.shelter.name}", "/shelters/#{@pet.shelter.id}", class: "siteLinks" %></p>
     <p>Adoption Status: <%= @pet.adoption_status %></p>
+    <%= button_to "Favorite Pet", "/favorites/#{@pet.id}", method: :patch %>
     <%= link_to "Update Pet", "/pets/#{@pet.id}/edit", class: "updateLinks"  %><br>
     <%= link_to "Delete Pet", "/pets/#{@pet.id}", class: "deleteLinks", method: :delete %>
   </div>
