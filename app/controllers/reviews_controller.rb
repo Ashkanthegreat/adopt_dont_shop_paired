@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   def new
   @shelter = Shelter.find(params[:id])
   end
-  
+
   def create
     shelter = Shelter.find(params[:id])
     # shelter.reviews.create(review_params)
@@ -14,7 +14,8 @@ class ReviewsController < ApplicationController
     else
       # flash[:error] = review.errors.full_messages.to_sentence
       flash[:notice] = "Review not created - Missing required fields"
-      render :new
+      # render :new
+      redirect_to "/shelters/#{shelter.id}/reviews/new"
     end
   end
 
