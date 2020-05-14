@@ -92,17 +92,30 @@ describe "Favorite Pets Index Page" do
     expect(page).to have_link("Favorite Pet")
     expect(page).to have_content("Favorite Pets: 0")
   end
+
+  it "Can remove a favorite pet from favorite index page" do
+    visit "/pets/#{@pet1.id}"
+
+    click_on "Favorite #{@pet1.name}"
+    click_on "Favorite Pets: 1"
+
+    expect(current_path).to eq("/favorites")
+    within("#favorite-#{@pet1.id}") do
+      click_on "Remove #{@pet1.name}"
+    end
+    expect(current_path).to eq("/favorites")
+    expect(page).to_not have_content("#{@pet1.name}")
+    expect(page).to have_content("Favorite Pets: 0")
+  end
 end
 
-# User Story 12, Can't Favorite a Pet More Than Once
+# User Story 13, Remove a Favorite from Favorites Page
 #
 # As a visitor
-# After I've favorited a pet
-# When I visit that pet's show page
-# I no longer see a link to favorite that pet
-# But I see a link to remove that pet from my favorites
-# When I click that link
+# When I have added pets to my favorites list
+# And I visit my favorites page ("/favorites")
+# Next to each pet, I see a button or link to remove that pet from my favorites
+# When I click on that button or link to remove a favorite
 # A delete request is sent to "/favorites/:pet_id"
-# And I'm redirected back to that pets show page where I can see a flash message indicating that the pet was removed from my favorites
-# And I can now see a link to favorite that pet
-# And I also see that my favorites indicator has decremented by 1
+# And I'm redirected back to the favorites page where I no longer see that pet listed
+# And I also see that the favorites indicator has decremented by 1

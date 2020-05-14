@@ -1,10 +1,13 @@
 <h1>Favorite Pets</h1>
 
 <% @pets.each do |pet| %>
-  <div class="petContainer">
-    <%= image_tag(pet.image, size: "300x250") %>
-    <div class="containerText">
-      <p>Name:<%= link_to " #{pet.name}", "/pets/#{pet.id}", class: "siteLinks" %></p>
+  <section id="favorite-<%= pet.id %>" >
+    <div class="petContainer">
+      <%= image_tag(pet.image, size: "300x250") %>
+      <div class="containerText">
+        <p>Name:<%= link_to " #{pet.name}", "/pets/#{pet.id}", class: "siteLinks" %></p>
+        <%= link_to "Remove #{pet.name}", "/favorites/#{pet.id}", class: "deleteLinks", method: :delete %> 
+      </div>
     </div>
-  </div>
+  </section>
 <% end %>
