@@ -33,7 +33,7 @@ describe "Favorite Pets Index Page" do
 
     visit "/pets/#{@pet1.id}"
 
-    click_on "Favorite Pet"
+    click_on "Favorite #{@pet1.name}"
 
     visit "/favorites"
 
@@ -42,7 +42,7 @@ describe "Favorite Pets Index Page" do
 
     visit "/pets/#{@pet2.id}"
 
-    click_on "Favorite Pet"
+    click_on "Favorite #{@pet2.name}"
 
     visit "/favorites"
 
@@ -61,7 +61,7 @@ describe "Favorite Pets Index Page" do
 
     visit "/pets/#{@pet1.id}"
 
-    click_on "Favorite Pet"
+    click_on "Favorite #{@pet1.name}"
 
     visit "/favorites"
 
@@ -69,16 +69,40 @@ describe "Favorite Pets Index Page" do
 
     expect(current_path).to eq("/favorites")
   end
+
+  it "Cannot favoritea pet more than once" do
+    visit "/pets/#{@pet1.id}"
+
+    click_on "Favorite #{@pet1.name}"
+    expect(page).to_not have_link("Favorite #{@pet1.name}")
+    expect(page).to have_link("Remove Favorite")
+
+  end
+
+  it "Can Remove a Pet from Favorites list" do
+    visit "/pets/#{@pet1.id}"
+
+    click_on "Favorite #{@pet1.name}"
+    expect(page).to have_content("Favorite Pets: 1")
+
+    click_on "Remove Favorite"
+
+    expect(current_path).to eq("/pets/#{@pet1.id}")
+    expect(page).to have_content("#{@pet1.name} has been removed from Favorites")
+    expect(page).to have_link("Favorite Pet")
+    expect(page).to have_content("Favorite Pets: 0")
+  end
 end
 
-
-
-# User Story 10, Favorite Index Page
+# User Story 12, Can't Favorite a Pet More Than Once
 #
 # As a visitor
-# When I have added pets to my favorites list
-# And I visit my favorites index page ("/favorites")
-# I see all pets I've favorited
-# Each pet in my favorites shows the following information:
-# - pet's name (link to pets show page)
-# - pet's image
+# After I've favorited a pet
+# When I visit that pet's show page
+# I no longer see a link to favorite that pet
+# But I see a link to remove that pet from my favorites
+# When I click that link
+# A delete request is sent to "/favorites/:pet_id"
+# And I'm redirected back to that pets show page where I can see a flash message indicating that the pet was removed from my favorites
+# And I can now see a link to favorite that pet
+# And I also see that my favorites indicator has decremented by 1

@@ -13,4 +13,12 @@ class Favorite
   def add_pet(id)
     @favorite_pets << id
   end
+
+  def is_a_favorite?(id)
+    @favorite_pets.include?(id)
+  end
+
+  def remove_pet(id)
+    @favorite_pets.delete(id)
+  end
 end

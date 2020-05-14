@@ -57,7 +57,7 @@ describe "Pet show page" do
     it "can favorite a pet" do
       visit "pets/#{@pet1.id}"
 
-      click_on "Favorite Pet"
+      click_on "Favorite #{@pet1.name}"
 
       expect(current_path).to eq("/pets/#{@pet1.id}")
 
