@@ -21,6 +21,9 @@ class FavoritesController < ApplicationController
     favorite.remove_pet(pet.id)
     session[:favorite] = favorite.favorite_pets
     flash[:notice] = "#{pet.name} has been removed from Favorites"
-    redirect_to "/pets/#{pet.id}"
+    redirect_back fallback_location: "/favorites"
+
   end
+
+
 end
