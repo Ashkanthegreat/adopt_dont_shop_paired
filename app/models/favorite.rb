@@ -21,4 +21,8 @@ class Favorite
   def remove_pet(id)
     @favorite_pets.delete(id)
   end
+
+  def remove_all
+    @favorite_pets.clear
+  end
 end

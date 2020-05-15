@@ -116,11 +116,31 @@ describe "Favorite Pets Index Page" do
     expect(page).to have_content("You have no favorited pets")
     expect(page).to have_content("Favorite Pets: 0")
   end
+
+  it "Can remove all favorited pets from the index, with a button" do
+    visit "/pets/#{@pet1.id}"
+    click_on "Favorite #{@pet1.name}"
+
+    visit "/pets/#{@pet2.id}"
+    click_on "Favorite #{@pet2.name}"
+
+    visit "/favorites"
+
+    click_on "Remove All Favorites"
+
+    expect(current_path).to eq("/favorites")
+    expect(page).to have_content("You have no favorited pets")
+    expect(page).to have_content("Favorite Pets: 0")  
+  end
 end
 
-# User Story 14, No Favorites Page
+# User Story 15, Remove all Favorite from Favorites Page
 #
 # As a visitor
-# When I have not added any pets to my favorites list
+# When I have added pets to my favorites list
 # And I visit my favorites page ("/favorites")
-# I see text saying that I have no favorited pets
+# I see a link to remove all favorited pets
+# When I click that link
+# I'm redirected back to the favorites page
+# I see the text saying that I have no favorited pets
+# And the favorites indicator returns to 0
