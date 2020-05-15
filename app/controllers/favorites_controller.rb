@@ -5,6 +5,9 @@ class FavoritesController < ApplicationController
     @pets = favorite.favorite_pets.map do |pet_id|
       Pet.find(pet_id)
     end
+    if favorite.total_count == 0
+      flash[:notice] = "You have no favorited pets"
+    end
   end
 
   def update
@@ -22,7 +25,6 @@ class FavoritesController < ApplicationController
     session[:favorite] = favorite.favorite_pets
     flash[:notice] = "#{pet.name} has been removed from Favorites"
     redirect_back fallback_location: "/favorites"
-
   end
 
 

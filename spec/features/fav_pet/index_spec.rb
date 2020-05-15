@@ -109,15 +109,18 @@ describe "Favorite Pets Index Page" do
     end
     expect(page).to have_content("Favorite Pets: 0")
   end
+
+  it "if no pets have been favorited, it will see a message indicating that no pets have been favorite" do
+    visit "/favorites"
+
+    expect(page).to have_content("You have no favorited pets")
+    expect(page).to have_content("Favorite Pets: 0")
+  end
 end
 
-# User Story 13, Remove a Favorite from Favorites Page
+# User Story 14, No Favorites Page
 #
 # As a visitor
-# When I have added pets to my favorites list
+# When I have not added any pets to my favorites list
 # And I visit my favorites page ("/favorites")
-# Next to each pet, I see a button or link to remove that pet from my favorites
-# When I click on that button or link to remove a favorite
-# A delete request is sent to "/favorites/:pet_id"
-# And I'm redirected back to the favorites page where I no longer see that pet listed
-# And I also see that the favorites indicator has decremented by 1
+# I see text saying that I have no favorited pets
