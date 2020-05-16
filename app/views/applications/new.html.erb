@@ -2,7 +2,7 @@
 
   <% @pets.each do |pet| %>
     <%= label_tag pet.name %>
-    <%= check_box_tag pet.name %><br>
+    <%= check_box_tag "favorite_pet_ids[]", pet.id, false, :id => pet.id %><br>
   <% end %>
 
   <%= label_tag "Name" %>

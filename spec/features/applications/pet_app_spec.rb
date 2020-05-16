@@ -28,8 +28,8 @@ describe "Pet Applications" do
     click_on "Adopt Pets"
 # require "pry"; binding.pry
     expect(current_path).to eq("/applications/new")
-    check("#{@pet1.name}")
-    check("#{@pet2.name}")
+    check(@pet1.id)
+    check(@pet2.id)
 
     fill_in :name, with: "Ash"
     fill_in :address, with: "123 Main St"
