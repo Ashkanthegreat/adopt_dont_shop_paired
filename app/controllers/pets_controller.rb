@@ -1,11 +1,12 @@
 class PetsController < ApplicationController
 
   def index
-      @pets = Pet.all
+    @pets = Pet.all
   end
 
   def show
     @pet = Pet.find(params[:id])
+    @fav_pet = favorite.is_a_favorite?(@pet.id)
   end
 
   def new
