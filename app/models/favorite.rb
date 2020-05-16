@@ -25,4 +25,10 @@ class Favorite
   def remove_all
     @favorite_pets.clear
   end
+
+  def id_to_object
+    @favorite_pets.map do |pet_id|
+      Pet.find(pet_id)
+    end
+  end
 end

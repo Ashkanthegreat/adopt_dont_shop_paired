@@ -1,4 +1,7 @@
 <h1>Favorite Pets</h1>
+<% if @pets.length > 0 %>
+  <%= link_to "Adopt Pets", "/applications/new", class: "siteLinks" %>
+<% end %>
 <%= link_to "Remove All Favorites", "/favorites", class: "deleteLinks", method: :delete %>
 
 <section id="allFavoritePets">
