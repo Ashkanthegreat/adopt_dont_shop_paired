@@ -7,7 +7,13 @@ class ApplicationsController < ApplicationController
 
   def create
     app = Application.new(application_params)
-    # favorite = Favorite.new(session[:favorite])
+
+    if params[:favorite_pet_ids].nil?
+      redirect_to "/applications/new"
+      flash[:notice] = "All Fields Required!"
+      return 
+    end
+
     if app.save
       params[:favorite_pet_ids].each do |favorite_pet_id|
         favorite_pet_id = favorite_pet_id.to_i
@@ -15,10 +21,12 @@ class ApplicationsController < ApplicationController
         favorite.remove_pet(favorite_pet_id)
         session[:favorite] = favorite.favorite_pets
       end
+        redirect_to "/favorites"
+        flash[:notice] = "Application Submitted"
+    else
+      redirect_to "/applications/new"
+      flash[:notice] = "All Fields Required!"
     end
-    flash[:notice] = "Application Submitted"
-
-    redirect_to "/favorites"
   end
 
   private

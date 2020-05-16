@@ -26,7 +26,7 @@ describe "Pet Applications" do
     visit "/favorites"
 
     click_on "Adopt Pets"
-# require "pry"; binding.pry
+
     expect(current_path).to eq("/applications/new")
     check(@pet1.id)
     check(@pet2.id)
@@ -46,18 +46,62 @@ describe "Pet Applications" do
     expect(page).to_not have_content("#{@pet1.name}")
     expect(page).to_not have_content("#{@pet2.name}")
     expect(page).to have_content("#{@pet3.name}")
+  end
 
+  it "can not apply for a pet without filling in all required field" do
+    visit "/favorites"
+
+    expect(page).to_not have_link("Adopt Pets")
+
+    visit "/pets/#{@pet1.id}"
+    click_on "Favorite #{@pet1.name}"
+
+    visit "/pets/#{@pet2.id}"
+    click_on "Favorite #{@pet2.name}"
+
+    visit "/pets/#{@pet3.id}"
+    click_on "Favorite #{@pet3.name}"
+
+    visit "/favorites"
+
+    click_on "Adopt Pets"
+
+    # Missing Zip Code
+    check(@pet1.id)
+    check(@pet2.id)
+    fill_in :name, with: "Ash"
+    fill_in :address, with: "123 Main St"
+    fill_in :city, with: "Denver"
+    fill_in :state, with: "CO"
+    fill_in :phone, with: "720-555-5555"
+    fill_in :description, with: "I am awesome!"
+
+    click_on "Submit Application"
+
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("All Fields Required!")
+
+
+
+    fill_in :name, with: "Ash"
+    fill_in :address, with: "123 Main St"
+    fill_in :city, with: "Denver"
+    fill_in :state, with: "CO"
+    fill_in :zip, with: "80231"
+    fill_in :phone, with: "720-555-5555"
+    fill_in :description, with: "I am awesome!"
+
+    click_on "Submit Application"
+
+    expect(current_path).to eq("/applications/new")
+    expect(page).to have_content("All Fields Required!")
   end
 end
-# User Story 16, Applying for a Pet
+
+# User Story 17, Incomplete application for a Pet
 #
 # As a visitor
-# When I have added pets to my favorites list
-# And I visit my favorites page ("/favorites")
-# I see a link for adopting my favorited pets
-# When I click that link I'm taken to a new application form
-# At the top of the form, I can select from the pets of which I've favorited for which I'd like this application to apply towards (can be more than one)
-# When I select one or more pets, and fill in my
+# When I apply for a pet and fail to fill out any of the following:
 # - Name
 # - Address
 # - City
@@ -66,5 +110,5 @@ end
 # - Phone Number
 # - Description of why I'd make a good home for this/these pet(s)
 # And I click on a button to submit my application
-# I see a flash message indicating my application went through for the pets that were selected
-# And I'm taken back to my favorites page where I no longer see the pets for which I just applied listed as favorites
+# I'm redirect back to the new application form to complete the necessary fields
+# And I see a flash message indicating that I must complete the form in order to submit the application
