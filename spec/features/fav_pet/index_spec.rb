@@ -132,4 +132,57 @@ describe "Favorite Pets Index Page" do
     expect(page).to have_content("You have no favorited pets")
     expect(page).to have_content("Favorite Pets: 0")
   end
+
+  it "Can see all of the pets that have at least one application on them" do
+    visit "/favorites"
+
+    expect(page).to_not have_link("Adopt Pets")
+
+    visit "/pets/#{@pet1.id}"
+    click_on "Favorite #{@pet1.name}"
+
+    visit "/pets/#{@pet2.id}"
+    click_on "Favorite #{@pet2.name}"
+
+    visit "/pets/#{@pet3.id}"
+    click_on "Favorite #{@pet3.name}"
+
+    visit "/favorites"
+
+    click_on "Adopt Pets"
+
+    expect(current_path).to eq("/applications/new")
+    check(@pet1.id)
+    check(@pet2.id)
+
+    fill_in :name, with: "Ash"
+    fill_in :address, with: "123 Main St"
+    fill_in :city, with: "Denver"
+    fill_in :state, with: "CO"
+    fill_in :zip, with: "80231"
+    fill_in :phone, with: "720-555-5555"
+    fill_in :description, with: "I am awesome!"
+
+    click_on "Submit Application"
+
+    within("#allFavoritePets") do
+      expect(page).to_not have_content(@pet1.name)
+      expect(page).to_not have_content(@pet2.name)
+    end
+
+    within("#applicationPending") do
+      expect(page).to have_content(@pet1.name)
+      expect(page).to have_content(@pet2.name)
+      expect(page).to_not have_content(@pet3.name)
+    end
+
+  end
 end
+
+# User Story 18, List of Pets that have applications on them
+#
+# As a visitor
+# After one or more applications have been created
+# When I visit the favorites index page
+# I see a section on the page that has a list of all of the pets that have at least one application on them
+# Each pet's name is a link to their show page

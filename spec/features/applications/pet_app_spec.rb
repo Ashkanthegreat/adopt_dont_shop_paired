@@ -43,9 +43,11 @@ describe "Pet Applications" do
 
     expect(current_path).to eq("/favorites")
     expect(page).to have_content("Application Submitted")
-    expect(page).to_not have_content("#{@pet1.name}")
-    expect(page).to_not have_content("#{@pet2.name}")
-    expect(page).to have_content("#{@pet3.name}")
+    within("#allFavoritePets") do
+      expect(page).to_not have_content("#{@pet1.name}")
+      expect(page).to_not have_content("#{@pet2.name}")
+      expect(page).to have_content("#{@pet3.name}")
+    end
   end
 
   it "can not apply for a pet without filling in all required field" do
@@ -97,18 +99,3 @@ describe "Pet Applications" do
     expect(page).to have_content("All Fields Required!")
   end
 end
-
-# User Story 17, Incomplete application for a Pet
-#
-# As a visitor
-# When I apply for a pet and fail to fill out any of the following:
-# - Name
-# - Address
-# - City
-# - State
-# - Zip
-# - Phone Number
-# - Description of why I'd make a good home for this/these pet(s)
-# And I click on a button to submit my application
-# I'm redirect back to the new application form to complete the necessary fields
-# And I see a flash message indicating that I must complete the form in order to submit the application
