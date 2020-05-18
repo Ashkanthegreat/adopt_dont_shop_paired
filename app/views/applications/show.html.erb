@@ -1,0 +1,17 @@
+<h1>Pet Application</h1>
+
+<p> Name: <%= @application.name %> </p>
+<p> Address: <%= @application.address %> </p>
+<p> City: <%= @application.city %> </p>
+<p> State: <%= @application.state %> </p>
+<p> Zip: <%= @application.zip %> </p>
+<p> Phone: <%= @application.phone %> </p>
+<p> Description: <%= @application.description %> </p>
+
+<h4>Pets Applied For</h4>
+<% @application.pets.each do |pet| %>
+  <section id="pet-<%=pet.id%>">
+  <p><%= link_to pet.name, "/pets/#{pet.id}", class: "siteLinks" %></p>
+  <%= link_to "Approve Application", "/pets/#{pet.id}?adoption_status=Pending", method: :patch  %>
+</section>
+<% end %>

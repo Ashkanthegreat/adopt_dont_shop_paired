@@ -5,13 +5,17 @@ class ApplicationsController < ApplicationController
     @pets = favorite.id_to_object
   end
 
+  def show
+    @application = Application.find(params[:id])
+  end
+
   def create
     app = Application.new(application_params)
 
     if params[:favorite_pet_ids].nil?
       redirect_to "/applications/new"
       flash[:notice] = "All Fields Required!"
-      return 
+      return
     end
 
     if app.save

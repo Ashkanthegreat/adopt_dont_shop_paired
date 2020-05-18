@@ -27,8 +27,6 @@ class PetsController < ApplicationController
     pet = Pet.find(params[:id])
     pet.update(pet_params)
 
-    pet.save
-
     redirect_to "/pets/#{pet.id}"
   end
 
@@ -40,6 +38,6 @@ class PetsController < ApplicationController
   private
 
   def pet_params
-    params.permit(:image, :name, :description, :approximate_age, :sex)
+    params.permit(:image, :name, :description, :approximate_age, :sex, :adoption_status)
   end
 end
