@@ -33,6 +33,10 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def index
+    @pet = Pet.find{params[:id]}
+  end
+
   private
 
   def application_params
