@@ -30,6 +30,15 @@ class PetsController < ApplicationController
     redirect_to "/pets/#{pet.id}"
   end
 
+  def multi_approve
+    params[:selected_pet_ids].each do |selected_pet_id|
+      selected_pet_id = selected_pet_id.to_i
+      pet = Pet.find(selected_pet_id)
+      pet.update(adoption_status: "Pending")
+    end
+    redirect_to "/favorites"
+  end
+
   def destroy
     pet = Pet.find(params[:id])
     favorite = Favorite.new(session[:favorite])

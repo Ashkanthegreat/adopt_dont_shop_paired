@@ -20,6 +20,8 @@
 <h1>Application Pending</h1>
   <section id="applicationPending">
     <% @pets_applied_for.each do |pet| %>
-      <p>Name:<%= link_to pet.name, "/pets/#{pet.id}", class: "siteLinks" %></p>
+
+        <p>Name: <%= link_to pet.name, "/pets/#{pet.id}", class: "siteLinks" %></p>
+
     <% end %>
   </section>

@@ -9,6 +9,8 @@ describe "Pet Applications Index" do
 
       @pet2 = Pet.create(image: "https://pixabay.com/get/5ee0d44b4854b10ff3d89960c62d3f761d37dae25757_640.jpg", name: "Bob", approximate_age: "1", sex: "Male", shelter_id: @shelter1.id)
 
+      @pet3 = Pet.create(image: "https://pixabay.com/get/5ee0d44b4854b10ff3d89960c62d3f761d37dae25757_640.jpg", name: "Lars", approximate_age: "14", sex: "Male", shelter_id: @shelter1.id)
+
       @application1 = Application.create(name: "Frank", address: "123 main st", city: "Denver", state: "CO", zip: "80210", phone: "720-555-5555", description: "I am a good person" )
 
       @application2 = Application.create(name: "Meg", address: "423 Elm St", city: "Denver", state: "CO", zip: "80231", phone: "720-777-7777", description: "I have adopted many pets" )
@@ -44,10 +46,13 @@ describe "Pet Applications Index" do
       expect(current_path).to eq("/applications/#{@application1.id}")
     end
 
+    it "Can see a a message when there is no applicationon a pet when I visit a pet applications index page" do
+      visit "/pets/#{@pet3.id}"
+
+      click_on "View All Applications"
+
+      expect(page).to have_content("No Applications on this pet")
+    end
+
   end
 end
-
-
-
-#When I visit a pet applications index page for a pet that has no applications on them
-#I see a message saying that there are no applications for this pet yet

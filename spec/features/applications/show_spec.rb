@@ -47,4 +47,24 @@ describe "Pet Applications show page" do
     expect(@pet2.reload.adoption_status).to eq("Pending")
     expect(page).to have_content("Pending")
   end
+
+  it "can approve multiple pets for one application" do
+    visit "/applications/#{@application1.id}"
+
+    within("#pet-#{@pet1.id}") do
+      check(@pet1.id)
+    end
+
+    within("#pet-#{@pet2.id}") do
+      check(@pet2.id)
+    end
+
+    click_on "Approve Selected Pets"
+
+    expect(current_path).to eq("/favorites")
+
+    expect(page).to have_content("Name: Rosco")
+    expect(page).to have_content("Name: Bob")
+
+  end
 end

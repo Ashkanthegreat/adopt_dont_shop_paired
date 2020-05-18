@@ -1,4 +1,10 @@
 class ApplicationsController < ApplicationController
+  def index
+    @pet = Pet.find(params[:id])
+    if @pet.applications.empty?
+      flash[:notice] = "No Applications on this pet"
+    end
+  end
 
   def new
     favorite = Favorite.new(session[:favorite])
@@ -33,9 +39,6 @@ class ApplicationsController < ApplicationController
     end
   end
 
-  def index
-    @pet = Pet.find{params[:id]}
-  end
 
   private
 
