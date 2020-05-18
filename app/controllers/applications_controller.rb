@@ -4,14 +4,14 @@ class ApplicationsController < ApplicationController
     favorite = Favorite.new(session[:favorite])
     @pets = favorite.id_to_object
   end
-
+  
   def create
     app = Application.new(application_params)
 
     if params[:favorite_pet_ids].nil?
       redirect_to "/applications/new"
       flash[:notice] = "All Fields Required!"
-      return 
+      return
     end
 
     if app.save
@@ -27,6 +27,10 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:notice] = "All Fields Required!"
     end
+  end
+
+  def index
+    @pet = Pet.find{params[:id]}
   end
 
   private
