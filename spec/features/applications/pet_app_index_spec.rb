@@ -46,7 +46,7 @@ describe "Pet Applications Index" do
       expect(current_path).to eq("/applications/#{@application1.id}")
     end
 
-    it "Can see a a message when there is no applicationon a pet when I visit a pet applications index page" do
+    it "Can see a a message when there is no application on a pet when I visit a pet applications index page" do
       visit "/pets/#{@pet3.id}"
 
       click_on "View All Applications"

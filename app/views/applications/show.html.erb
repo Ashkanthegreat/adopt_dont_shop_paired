@@ -9,9 +9,13 @@
 <p> Description: <%= @application.description %> </p>
 
 <h4>Pets Applied For</h4>
-<% @application.pet_applications.each do |pet_app| %>
-  <section id="pet-<%=pet_app.pet.id%>">
-  <p><%= link_to pet_app.pet.name, "/pets/#{pet_app.pet.id}", class: "siteLinks" %></p>
-  <%= link_to "Approve Application", "/pets/#{pet_app.pet.id}/applications/#{@application.id}/approve", method: :patch  %>
-</section>
+<%= form_tag("/applications/#{@application.id}/multi_approve", method: :patch) do %>
+  <% @application.pet_applications.each do |pet_app| %>
+    <section id="pet-<%=pet_app.pet.id%>">
+      <%= check_box_tag "selected_pet_ids[]", pet_app.pet.id, false, :id => pet_app.pet.id %><br>
+      <p><%= link_to pet_app.pet.name, "/pets/#{pet_app.pet.id}", class: "siteLinks" %></p>
+      <%= link_to "Approve Application", "/pets/#{pet_app.pet.id}/applications/#{@application.id}/approve", method: :patch  %>
+    </section>
+  <% end %>
+  <%= submit_tag "Approve Selected Pets" %>
 <% end %>

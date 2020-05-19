@@ -2,6 +2,9 @@ class ApplicationsController < ApplicationController
 
   def index
     @pet = Pet.find(params[:id])
+    if @pet.applications.empty?
+      flash[:notice] = "No Applications on this pet"
+    end
   end
 
   def new
@@ -46,6 +49,18 @@ class ApplicationsController < ApplicationController
     pet_app = PetApplication.find_by(pet_id: pet.id, application_id: app.id)
     pet_app.update(approved: true)
     redirect_to "/pets/#{pet.id}"
+  end
+
+  def multi_approve
+    app = Application.find(params[:app_id])
+    params[:selected_pet_ids].each do |selected_pet_id|
+      selected_pet_id = selected_pet_id.to_i
+      pet = Pet.find(selected_pet_id)
+      pet_app = PetApplication.find_by(pet_id: pet.id, application_id: app.id)
+      pet.update(adoption_status: "Pending")
+      pet_app.update(approved: true)
+    end
+  redirect_to "/favorites"
   end
 
 
