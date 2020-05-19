@@ -48,7 +48,18 @@ class ApplicationsController < ApplicationController
     pet.update(adoption_status: "Pending")
     pet_app = PetApplication.find_by(pet_id: pet.id, application_id: app.id)
     pet_app.update(approved: true)
+
     redirect_to "/pets/#{pet.id}"
+  end
+
+  def revoke
+    app = Application.find(params[:app_id])
+    pet = Pet.find(params[:pet_id])
+    pet.update(adoption_status: "adoptable")
+    pet_app = PetApplication.find_by(pet_id: pet.id, application_id: app.id)
+    pet_app.update(approved: false)
+
+    redirect_to "/applications/#{app.id}"
   end
 
   def multi_approve

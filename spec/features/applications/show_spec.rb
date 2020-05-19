@@ -104,9 +104,39 @@ describe "Pet Applications show page" do
    expect(page).to_not have_field(@pet1.id, type: 'checkbox')
    expect(page).to have_field(@pet2.id, type: 'checkbox')
 
+ end
 
+ it "can revoke an application" do
+   visit "/applications/#{@application1.id}"
 
+   expect(@pet_app1.approved).to eq(false)
 
+   within("#pet-#{@pet1.id}") do
+     click_on "Approve Application"
+   end
+
+   expect(current_path).to eq("/pets/#{@pet1.id}")
+   expect(@pet1.reload.adoption_status).to eq("Pending")
+   expect(page).to have_content("Pending")
+   expect(@pet_app1.reload.approved).to eq(true)
+
+   visit "/applications/#{@application1.id}"
+
+   within("#pet-#{@pet1.id}") do
+     click_on "Revoke Application"
+   end
+
+   expect(current_path).to eq("/applications/#{@application1.id}")
+
+   within("#pet-#{@pet1.id}") do
+     expect(page).to have_content("Approve Application")
+   end
+
+   expect(@pet1.reload.adoption_status).to eq("adoptable")
+   expect(@pet_app1.reload.approved).to eq(false)
+
+   visit "/pets/#{@pet1.id}"
+   expect(page).to have_content("adoptable")
 
  end
 end
