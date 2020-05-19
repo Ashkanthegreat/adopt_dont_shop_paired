@@ -25,9 +25,6 @@ class PetsController < ApplicationController
 
   def update
     pet = Pet.find(params[:id])
-    if pet.adoption_status == "Pending"
-      flash[:notice] = 'Some message'
-    end
     pet.update(pet_params)
 
     redirect_to "/pets/#{pet.id}"

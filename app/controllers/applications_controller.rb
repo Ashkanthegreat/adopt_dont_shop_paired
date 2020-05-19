@@ -30,7 +30,7 @@ class ApplicationsController < ApplicationController
     if app.save
       params[:favorite_pet_ids].each do |favorite_pet_id|
         favorite_pet_id = favorite_pet_id.to_i
-        PetApplication.create!({pet_id: favorite_pet_id, application_id: app.id})
+        PetApplication.create({pet_id: favorite_pet_id, application_id: app.id})
         favorite.remove_pet(favorite_pet_id)
         session[:favorite] = favorite.favorite_pets
       end
