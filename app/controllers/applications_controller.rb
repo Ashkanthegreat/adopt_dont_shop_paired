@@ -1,9 +1,7 @@
 class ApplicationsController < ApplicationController
+
   def index
     @pet = Pet.find(params[:id])
-    if @pet.applications.empty?
-      flash[:notice] = "No Applications on this pet"
-    end
   end
 
   def new
@@ -13,6 +11,8 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
+    # binding.pry
+    # @pet_apps = @application.pet_applications.all
   end
 
   def create
@@ -37,6 +37,15 @@ class ApplicationsController < ApplicationController
       redirect_to "/applications/new"
       flash[:notice] = "All Fields Required!"
     end
+  end
+
+  def approve
+    app = Application.find(params[:app_id])
+    pet = Pet.find(params[:pet_id])
+    pet.update(adoption_status: "Pending")
+    pet_app = PetApplication.find_by(pet_id: pet.id, application_id: app.id)
+    pet_app.update(approved: true)
+    redirect_to "/pets/#{pet.id}"
   end
 
 
