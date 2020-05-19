@@ -8,8 +8,6 @@ describe "Shelters show page", type: :feature do
     @review2 = @shelter1.reviews.create!(title: "Amazing Rescue", rating: "5", content: "Super friendly staff", picture: "https://imgur.com/rjS5VMO")
   end
 
-
-
   it "Can see a single shelter" do
 
     visit "shelters/#{@shelter1.id}"
