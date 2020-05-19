@@ -2,83 +2,83 @@ Shelter.destroy_all
 Pet.destroy_all
 Application.destroy_all
 
-@shelter_1 = Shelter.create(name:     "Pet Palace",
+@shelter_1 = Shelter.create(name:     "Dumb Friends League",
                             address:  "12483 Jefferson Drive",
                             city:     "Denver",
                             state:    "CO",
                             zip:      "80205")
 
 
-@shelter_2 = Shelter.create(name:     "Save a Pet",
+@shelter_2 = Shelter.create(name:     "Peace, Love, Paws",
                             address:  "38372 Main",
                             city:     "Fort Collins",
                             state:    "CO",
                             zip:      "80205")
 
-@shelter_3 = Shelter.create(name:     "Pet Oasis",
+@shelter_3 = Shelter.create(name:     "Pet Heaven",
                             address:  "4563 Royal Avenue",
                             city:     "Fort Collins",
                             state:    "CO",
                             zip:      "80205")
 
-@shelter_4 = Shelter.create(name:     "Adopt a Pet",
+@shelter_4 = Shelter.create(name:     "Love Four Legged Friends",
                             address:  "7864 Collins",
                             city:     "Aurora",
                             state:    "CO",
                             zip:      "80205")
 
 
-@pet_10 = Pet.create( image: "https://d17fnq9dkz9hgj.cloudfront.net/uploads/2017/12/adoptable-cat-cropped.jpeg",
+@pet_10 = Pet.create( image: "https://www.southbostonanimalhospital.com/hubfs/How-to-Get-Some-Sleep-When-Your-Pet-Keeps-You-Up-at-Night.jpg",
                       name:  "Felix",
                       description: "Super loveable! Just looking for a place to settle down and call home",
-                      approximate_age: "5",
+                      approximate_age: "<1",
                       sex: "male",
                       adoption_status: "adoptable",
                       shelter_id: @shelter_3.id)
 
 
-@pet_11 = Pet.create( image: "https://wtop.com/wp-content/uploads/2019/05/small-black-dog.jpg",
+@pet_11 = Pet.create( image: "https://d17fnq9dkz9hgj.cloudfront.net/breed-uploads/2018/09/dog-landing-hero-lg.jpg?bust=1536935129&width=1080",
                       name:  "Echo",
                       description: "Super friendly towards humans. Still shy around her furry friends",
                       approximate_age: "4",
-                      sex: "female",
+                      sex: "male",
                       adoption_status: "adoptable",
                       shelter_id: @shelter_4.id)
 
-@pet_1 = Pet.create(  image: "https://i.imgur.com/wKls5bM.png",
-                      name:  "Ziggy",
-                      description: "He's a super chill dude",
-                      approximate_age: "1",
+@pet_1 = Pet.create(  image: "https://i.imgur.com/uQ7WVLL.jpg",
+                      name:  "Huxley",
+                      description: "Sweet senoir dog",
+                      approximate_age: "18",
                       sex: "male",
                       adoption_status: "adoptable",
                       shelter_id: @shelter_1.id)
 
 
-@pet_2 = Pet.create(  image: "https://www.thesprucepets.com/thmb/JN3PLkiEX5HOCqQca7ZrcFkdYV0=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-962608834-fd496cfed51e4d2abe61c0af864fa681.jpg",
+@pet_2 = Pet.create(  image: "https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2016/05/19091354/Weimaraner-puppy-outdoors-with-bright-blue-eyes.20190813165758508-1.jpg",
                       name:  "Shadow",
                       description: "He's aged like fine wine",
-                      approximate_age: "8",
+                      approximate_age: "6",
                       sex: "male",
                       adoption_status: "adoptable",
                       shelter_id: @shelter_1.id)
 
-@pet_3 = Pet.create(  image: "https://img.buzzfeed.com/buzzfeed-static/static/2018-06/25/6/asset/buzzfeed-prod-web-02/sub-buzz-30033-1529923650-1.jpg?downsize=700%3A%2A&output-quality=auto&output-format=auto&output-quality=auto&output-format=auto&downsize=360:*",
-                      name:  "Spazz",
+@pet_3 = Pet.create(  image: "https://www.humanesociety.org/sites/default/files/styles/1240x698/public/2019/02/dog-451643.jpg?h=bf654dbc&itok=MQGvBmuo",
+                      name:  "Scooter",
                       description: "Don't let the looks fool you... She's a sweetheart",
                       approximate_age: "2",
                       sex: "female",
                       adoption_status: "adoptable",
                       shelter_id: @shelter_2.id)
 
-@pet_4 = Pet.create(  image: "https://apamo.org/wp-content/uploads/2020/03/A076662.jpg",
+@pet_4 = Pet.create(  image: "https://d1941uuft27pfg.cloudfront.net/breed-uploads/2018/08/akita-card-medium.jpg?bust=1535569354",
                       name:  "Sasha",
-                      description: "Stays to herself except when the tin can gets open",
+                      description: "Stays to herself except when you have treats",
                       approximate_age: "4",
                       sex: "female",
                       adoption_status: "adoptable",
                       shelter_id: @shelter_4.id)
 
-@pet_5 = Pet.create(  image: "https://www.denvergov.org/content/dam/denvergov/Portals/682/images/AdoptableDog_MainAdoptablesImage.jpg",
+@pet_5 = Pet.create(  image: "https://cdn.mos.cms.futurecdn.net/QjuZKXnkLQgsYsL98uhL9X.jpg",
                       name:  "Gizmo",
                       description: "Full of energy and a great family dog",
                       approximate_age: "4",
@@ -86,15 +86,15 @@ Application.destroy_all
                       adoption_status: "adoptable",
                       shelter_id: @shelter_3.id)
 
-@pet_6 = Pet.create(  image: "https://g.petango.com/photos/2241/5832e7cd-0325-4037-85ac-d108d894dafd.jpg",
+@pet_6 = Pet.create(  image: "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/327/327387/cat-playing-with-toy.jpg?w=1155&h=1734",
                       name:  "Molly",
                       description: "Sweet and loving",
-                      approximate_age: "6",
+                      approximate_age: "8",
                       sex: "female",
                       adoption_status: "adoptable",
                       shelter_id: @shelter_2.id)
 
-@pet_7 = Pet.create(  image: "https://g.petango.com/photos/2241/36841309-3e95-4b45-b411-90df7d99baac.jpg",
+@pet_7 = Pet.create(  image: "https://images.immediate.co.uk/production/volatile/sites/4/2018/12/GettyImages-918529586-35c7227.jpg?quality=90&crop=61px%2C468px%2C7710px%2C3317px&resize=960%2C408",
                       name:  "Bubbles",
                       description: "He enjoys the outdoors but will never complain about a lazy day inside",
                       approximate_age: "3",
@@ -102,7 +102,7 @@ Application.destroy_all
                       adoption_status: "adoptable",
                       shelter_id: @shelter_3.id)
 
-@pet_9 = Pet.create(  image: "https://cf-images.us-east-1.prod.boltdns.net/v1/static/5615998031001/8b371b05-61d2-4f6f-99c0-716a599251c0/ce28a4b0-6989-40fd-9574-8624b83825ce/1280x720/match/image.jpg",
+@pet_9 = Pet.create(  image: "https://dcist.com/wp-content/uploads/sites/3/2020/02/wilford_newsletter.jpg",
                       name:  "Tuna",
                       description: "I know I'm a cat but I just love tuna!",
                       approximate_age: "5",
