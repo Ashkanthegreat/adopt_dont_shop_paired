@@ -28,11 +28,28 @@ describe "Shelters show page", type: :feature do
 
     expect(page).to have_content("Edit Shelter")
 
-    fill_in "Address", with: "2000 Puppy Dr."
+    fill_in "address", with: "2000 Puppy Dr."
 
-      click_on "Update Shelter"
+    click_on "Update Shelter"
 
     expect(page).to have_content("2000 Puppy Dr.")
+
+    click_on "Update Shelter"
+
+    fill_in "address", with: ""
+
+    click_on "Update Shelter"
+
+    expect(current_path).to eq("/shelters/#{@shelter1.id}/edit")
+    expect(page).to have_content("Address can't be blank")
+
+    fill_in "name", with: ""
+    fill_in "state", with: ""
+
+    click_on "Update Shelter"
+
+    expect(current_path).to eq("/shelters/#{@shelter1.id}/edit")
+    expect(page).to have_content("Name can't be blank and State can't be blank")
   end
 
   it "can delete a shelter" do
