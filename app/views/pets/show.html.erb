@@ -1,5 +1,5 @@
 <div id="showPetContainer">
-  <img src="<%= @pet.image%>" width= "300", height= auto></img>
+    <img src=<%= @pet.image %> alt=<%= @pet.name %> height="300" width="300">
   <div class="showContainerText">
     <h1><%= link_to "#{@pet.name}", "/pets/#{@pet.id}", class: "siteLinks"  %></h1>
     <p>Description: <%= @pet.description %></p>

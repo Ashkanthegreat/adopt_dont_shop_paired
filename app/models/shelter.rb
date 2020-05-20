@@ -14,7 +14,7 @@ class Shelter < ApplicationRecord
       "0"
     else
       (reviews_sum/reviews_count).to_s
-    end 
+    end
   end
 
   def count_applications
@@ -22,6 +22,6 @@ class Shelter < ApplicationRecord
     pets.each do |pet|
       total_apps << pet.applications
     end
-    total_apps.uniq.count
+    total_apps.flatten.uniq.count
   end
 end

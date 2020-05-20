@@ -3,7 +3,7 @@
 <% @pets.each do |pet| %>
 <section id="pet-<%=pet.id%>">
   <div class="petContainer">
-    <%= image_tag(pet.image, height: 300, width: 300) %>
+    <img src=<%= pet.image %> alt=<%= pet.name %> height="300" width="300">
     <div class="containerText">
       <p>Name:<%= link_to " #{pet.name}", "/pets/#{pet.id}", class: "siteLinks" %></p>
       <p>Age: <%= pet.approximate_age %></p>

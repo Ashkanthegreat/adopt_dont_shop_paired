@@ -18,7 +18,7 @@
       <p><%= review.rating %></p>
       <p><%= review.content %></p>
       <% if review.picture != nil %>
-        <p><%= image_tag(review.picture) %></p>
+        <img src=<%= review.picture %> alt=<%= "Faulty Image" %> height="300" width="300"><br>
       <% end %>
       <%= link_to "Edit Review", "/shelters/#{@shelter.id}/#{review.id}/edit", class: "updateLinks" %><br>
       <%= link_to "Delete Review", "/shelters/#{@shelter.id}/#{review.id}", class: "deleteLinks", method: :delete %>

@@ -122,7 +122,6 @@ describe "Shelters show page", type: :feature do
 
     fill_in :title, with: "Sample Title"
     click_on "Update Review"
-
     expect(current_path).to eq("/shelters/#{@shelter1.id}")
     within("#review-#{@review1.id}") do
       expect(page).to have_content("Sample Title")

@@ -6,14 +6,14 @@
 
 <section id="allFavoritePets">
   <% @pets.each do |pet| %>
-  <section id="favorite-<%= pet.id %>" >
-    <div class="petContainer">
-      <%= image_tag(pet.image, size: "300x250") %>
-      <div class="containerText">
-        <p>Name:<%= link_to " #{pet.name}", "/pets/#{pet.id}", class: "siteLinks" %></p>
-        <%= link_to "Remove #{pet.name}", "/favorites/#{pet.id}", class: "deleteLinks", method: :delete %>
+    <section id="favorite-<%= pet.id %>" >
+      <div class="petContainer">
+        <img src=<%= pet.image %> alt=<%= pet.name %> height="300" width="300">
+        <div class="containerText">
+          <p>Name:<%= link_to " #{pet.name}", "/pets/#{pet.id}", class: "siteLinks" %></p>
+          <%= link_to "Remove #{pet.name}", "/favorites/#{pet.id}", class: "deleteLinks", method: :delete %>
+        </div>
       </div>
-    </div>
   </section>
   <% end %>
 </section>

@@ -1,15 +1,15 @@
 <%= form_tag("/shelters/#{@shelter.id}/reviews", method: :post) do %>
 
-  <%= label_tag "Title:" %>
+  <%= label_tag "Title: " %>
   <%= text_field_tag :title %><br>
 
-  <%= label_tag "Rating" %>
-  <%= text_field_tag :rating %><br>
+  <%= label_tag "Rating, 1-5: " %>
+  <%= number_field_tag :rating, nil, min: 1, max: 5 %><br>
 
-  <%= label_tag "Content" %>
+  <%= label_tag "Content: " %>
   <%= text_field_tag :content %><br>
 
-  <%= label_tag "Picture" %>
+  <%= label_tag "Picture: " %>
   <%= text_field_tag :picture %><br>
 
   <%= submit_tag "Submit Review" %>
