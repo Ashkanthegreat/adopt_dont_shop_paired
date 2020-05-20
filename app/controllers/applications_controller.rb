@@ -30,7 +30,7 @@ class ApplicationsController < ApplicationController
     if app.save
       params[:favorite_pet_ids].each do |favorite_pet_id|
         favorite_pet_id = favorite_pet_id.to_i
-        PetApplication.create!({pet_id: favorite_pet_id, application_id: app.id})
+        PetApplication.create({pet_id: favorite_pet_id, application_id: app.id})
         favorite.remove_pet(favorite_pet_id)
         session[:favorite] = favorite.favorite_pets
       end
@@ -48,7 +48,18 @@ class ApplicationsController < ApplicationController
     pet.update(adoption_status: "Pending")
     pet_app = PetApplication.find_by(pet_id: pet.id, application_id: app.id)
     pet_app.update(approved: true)
+
     redirect_to "/pets/#{pet.id}"
+  end
+
+  def revoke
+    app = Application.find(params[:app_id])
+    pet = Pet.find(params[:pet_id])
+    pet.update(adoption_status: "adoptable")
+    pet_app = PetApplication.find_by(pet_id: pet.id, application_id: app.id)
+    pet_app.update(approved: false)
+
+    redirect_to "/applications/#{app.id}"
   end
 
   def multi_approve

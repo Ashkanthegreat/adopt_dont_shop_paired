@@ -53,13 +53,23 @@ class SheltersController < ApplicationController
 
   def destroy
     shelter = Shelter.find(params[:id])
-    shelter.reviews.destroy
-    shelter.pets.destroy
+    approved_pets = shelter.pets.find_all do |pet|
+      pet.pet_applications.any? {|pet_app| pet_app.approved}
+    end
+    if shelter.pets.any? {|pet| pet.adoption_status == "Pending"}
+      flash[:notice] = "Can not delete this shelter"
+      redirect_back fallback_location: "/shelters"
+    elsif approved_pets.length > 0
+      flash[:notice] = "Can not delete this shelter"
+      redirect_back fallback_location: "/shelters"
+    else
     Shelter.destroy(params[:id])
     redirect_to "/shelters"
+    end
   end
 
-  def review 
+  def review
+
   end
 
 end
