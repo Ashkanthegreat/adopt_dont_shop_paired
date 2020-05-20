@@ -92,6 +92,14 @@ describe "Shelters show page", type: :feature do
 
     fill_in :title, with: "Good Shelter"
     fill_in :rating, with: "4"
+    click_on "Submit Review"
+
+    expect(current_path).to eq("/shelters/#{@shelter1.id}/reviews/new")
+    expect(page).to have_content("Review not created - Missing required fields")
+
+
+    fill_in :title, with: "Good Shelter"
+    fill_in :rating, with: "4"
     fill_in :content, with: "Caring people"
     click_on "Submit Review"
 
