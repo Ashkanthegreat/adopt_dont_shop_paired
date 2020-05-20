@@ -53,5 +53,26 @@ describe "Pets Index Page" do
       expect(page).to have_content(@pet3.name)
       expect(page).to_not have_content(@pet1.name)
     end
+
+    it "Can not delete a pet if the pet has a approved application" do
+      shelter1 = Shelter.create(name: "Puppies United")
+      pet1 = Pet.create(image: "https://pixabay.com/get/54e7dd464a55a814f1dc8460da2932761d37d6e1555874_640.jpg", name: "Rosco", approximate_age: "5", sex: "Male", description: "It's a pup", shelter_id: shelter1.id)
+      application1 = Application.create(name: "Taylor", address: "1805 Main St.", city: "Superior", state: "CO", zip: "80027", phone: "555-555-5555", description: "I love pets")
+      pet_app1 = PetApplication.create(pet_id: pet1.id, application_id: application1.id)
+
+      visit "/applications/#{application1.id}"
+
+      expect(pet_app1.approved).to eq(false)
+
+      within("#pet-#{pet1.id}") do
+        click_on "Approve Application"
+      end
+
+      visit "/pets"
+
+      within("#pet-#{pet1.id}") do
+        expect(page).to_not have_link("Delete")
+      end
+    end
   end
 end
