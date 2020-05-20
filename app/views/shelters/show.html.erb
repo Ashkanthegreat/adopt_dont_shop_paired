@@ -24,5 +24,10 @@
       <%= link_to "Delete Review", "/shelters/#{@shelter.id}/#{review.id}", class: "deleteLinks", method: :delete %>
       </section>
     <% end %>
+
+    <h4>Shelter Statistics</h4>
+      <p>Count of Pets: <%= @shelter.count_pets %> </p>
+      <p>Average Review Rating: <%= @shelter.average_review_rating %> </p>
+      <p>Number of Applications: <%= @shelter.count_applications %> </p>
   </div>
 </div>

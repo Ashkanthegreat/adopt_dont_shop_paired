@@ -10,7 +10,11 @@ class Shelter < ApplicationRecord
   def average_review_rating
     reviews_count = reviews.count
     reviews_sum = reviews.sum { |review| review.rating.to_f}
-    (reviews_sum/reviews_count).to_s
+    if reviews_count == 0
+      "0"
+    else
+      (reviews_sum/reviews_count).to_s
+    end 
   end
 
   def count_applications
