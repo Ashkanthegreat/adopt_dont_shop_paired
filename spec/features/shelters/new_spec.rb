@@ -2,7 +2,6 @@ require "rails_helper"
 
 describe "Shelters new page", type: :feature do
   it "Can see a form to create a new shelter" do
-
     visit "shelters"
     click_on "New Shelter"
 
@@ -15,6 +14,4 @@ describe "Shelters new page", type: :feature do
 
     expect(page).to have_content("Pups For You")
   end
-
-
 end

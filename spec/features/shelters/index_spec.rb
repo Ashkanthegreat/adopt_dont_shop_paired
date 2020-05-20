@@ -25,7 +25,6 @@ describe "Shelters index page", type: :feature do
   end
 
   it "Can See a link to create a new shelter: 'New Shelter'" do
-
     visit "/shelters"
 
     expect(page).to have_link("New Shelter", :href=> "/shelters/new")
@@ -50,32 +49,26 @@ describe "Shelters index page", type: :feature do
 
   it "can not create a shelter with missing fields" do
     visit "/shelters"
-
     click_on "New Shelter"
 
     fill_in "name", with: "Pups For You"
     fill_in "address", with: "1808 Pup lane"
-    # Missing city info
     fill_in "state", with: "Colorado"
     fill_in "zip", with: "80027"
+    
     click_on "Create Shelter"
 
     expect(page).to have_content("City can't be blank")
 
     fill_in "name", with: "Pups For You"
     fill_in "address", with: "1808 Pup lane"
-    # Missing city info
-    # Missing state info
     fill_in "zip", with: "80027"
 
     click_on "Create Shelter"
 
     expect(page).to have_content("City can't be blank and State can't be blank")
 
-    # Missing name info
     fill_in "address", with: "1808 Pup lane"
-    # Missing city info
-    # Missing state info
     fill_in "zip", with: "80027"
 
     click_on "Create Shelter"

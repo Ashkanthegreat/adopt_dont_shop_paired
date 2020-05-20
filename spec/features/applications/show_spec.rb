@@ -59,84 +59,83 @@ describe "Pet Applications show page" do
   end
 
   it "can approve multiple pets for one application" do
-   visit "/applications/#{@application1.id}"
+    visit "/applications/#{@application1.id}"
 
-   within("#pet-#{@pet1.id}") do
-     check(@pet1.id)
-   end
+    within("#pet-#{@pet1.id}") do
+      check(@pet1.id)
+    end
 
-   within("#pet-#{@pet2.id}") do
-     check(@pet2.id)
-   end
+    within("#pet-#{@pet2.id}") do
+      check(@pet2.id)
+    end
 
-   click_on "Approve Selected Pets"
+    click_on "Approve Selected Pets"
 
-   expect(current_path).to eq("/favorites")
+    expect(current_path).to eq("/favorites")
 
-   expect(@pet1.reload.adoption_status).to eq("Pending")
-   expect(@pet_app1.reload.approved).to eq(true)
-   expect(@pet2.reload.adoption_status).to eq("Pending")
-   expect(@pet_app2.reload.approved).to eq(true)
- end
+    expect(@pet1.reload.adoption_status).to eq("Pending")
+    expect(@pet_app1.reload.approved).to eq(true)
+    expect(@pet2.reload.adoption_status).to eq("Pending")
+    expect(@pet_app2.reload.approved).to eq(true)
+  end
 
- it "can not approve an application for a pet that already has an application approved" do
-   visit "/applications/#{@application1.id}"
+  it "can not approve an application for a pet that already has an application approved" do
+    visit "/applications/#{@application1.id}"
 
-   expect(@pet_app1.approved).to eq(false)
+    expect(@pet_app1.approved).to eq(false)
 
-   within("#pet-#{@pet1.id}") do
-     click_on "Approve Application"
-   end
+    within("#pet-#{@pet1.id}") do
+      click_on "Approve Application"
+    end
 
-   visit "/applications/#{@application2.id}"
+    visit "/applications/#{@application2.id}"
 
-   expect(@pet_app1.reload.approved).to eq(true)
-   expect(@pet1.reload.adoption_status).to eq("Pending")
+    expect(@pet_app1.reload.approved).to eq(true)
+    expect(@pet1.reload.adoption_status).to eq("Pending")
 
-   within("#pet-#{@pet1.id}") do
-     expect(page).to_not have_content("Approve Application")
-   end
+    within("#pet-#{@pet1.id}") do
+      expect(page).to_not have_content("Approve Application")
+    end
 
-   within("#pet-#{@pet2.id}") do
-     expect(page).to have_content("Approve Application")
-   end
+    within("#pet-#{@pet2.id}") do
+      expect(page).to have_content("Approve Application")
+    end
 
-   expect(page).to_not have_field(@pet1.id, type: 'checkbox')
-   expect(page).to have_field(@pet2.id, type: 'checkbox')
+    expect(page).to_not have_field(@pet1.id, type: 'checkbox')
+    expect(page).to have_field(@pet2.id, type: 'checkbox')
 
- end
+  end
 
- it "can revoke an application" do
-   visit "/applications/#{@application1.id}"
+  it "can revoke an application" do
+    visit "/applications/#{@application1.id}"
 
-   expect(@pet_app1.approved).to eq(false)
+    expect(@pet_app1.approved).to eq(false)
 
-   within("#pet-#{@pet1.id}") do
-     click_on "Approve Application"
-   end
+    within("#pet-#{@pet1.id}") do
+      click_on "Approve Application"
+    end
 
-   expect(current_path).to eq("/pets/#{@pet1.id}")
-   expect(@pet1.reload.adoption_status).to eq("Pending")
-   expect(page).to have_content("Pending")
-   expect(@pet_app1.reload.approved).to eq(true)
+    expect(current_path).to eq("/pets/#{@pet1.id}")
+    expect(@pet1.reload.adoption_status).to eq("Pending")
+    expect(page).to have_content("Pending")
+    expect(@pet_app1.reload.approved).to eq(true)
 
-   visit "/applications/#{@application1.id}"
+    visit "/applications/#{@application1.id}"
 
-   within("#pet-#{@pet1.id}") do
-     click_on "Revoke Application"
-   end
+    within("#pet-#{@pet1.id}") do
+      click_on "Revoke Application"
+    end
 
-   expect(current_path).to eq("/applications/#{@application1.id}")
+    expect(current_path).to eq("/applications/#{@application1.id}")
 
-   within("#pet-#{@pet1.id}") do
-     expect(page).to have_content("Approve Application")
-   end
+    within("#pet-#{@pet1.id}") do
+      expect(page).to have_content("Approve Application")
+    end
 
-   expect(@pet1.reload.adoption_status).to eq("adoptable")
-   expect(@pet_app1.reload.approved).to eq(false)
+    expect(@pet1.reload.adoption_status).to eq("adoptable")
+    expect(@pet_app1.reload.approved).to eq(false)
 
-   visit "/pets/#{@pet1.id}"
-   expect(page).to have_content("adoptable")
-
- end
+    visit "/pets/#{@pet1.id}"
+    expect(page).to have_content("adoptable")
+  end
 end

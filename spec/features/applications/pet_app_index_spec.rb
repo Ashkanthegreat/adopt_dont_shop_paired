@@ -22,7 +22,6 @@ describe "Pet Applications Index" do
       PetApplication.create({pet_id: @pet2.id, application_id: @application3.id})
     end
 
-
     it "I see a link to view all applications for this pet" do
       visit "/pets/#{@pet1.id}"
 
@@ -53,6 +52,5 @@ describe "Pet Applications Index" do
 
       expect(page).to have_content("No Applications on this pet")
     end
-
   end
 end

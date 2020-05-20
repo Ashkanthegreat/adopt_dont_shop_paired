@@ -16,55 +16,55 @@ describe Favorite do
         @pet1, @pet2, @pet3
         ])
 
-      expect(favorite.total_count).to eq(3)
-    end
+        expect(favorite.total_count).to eq(3)
+      end
 
-    it "#add_pet" do
-      favorite = Favorite.new(nil)
-      favorite.add_pet(@pet1.id)
-      favorite.add_pet(@pet2.id)
+      it "#add_pet" do
+        favorite = Favorite.new(nil)
+        favorite.add_pet(@pet1.id)
+        favorite.add_pet(@pet2.id)
 
-      expect(favorite.total_count).to eq(2)
-    end
+        expect(favorite.total_count).to eq(2)
+      end
 
-    it "#is_a_favorite" do
-      favorite = Favorite.new(nil)
-      favorite.add_pet(@pet1.id)
-      favorite.add_pet(@pet2.id)
+      it "#is_a_favorite" do
+        favorite = Favorite.new(nil)
+        favorite.add_pet(@pet1.id)
+        favorite.add_pet(@pet2.id)
 
-      expect(favorite.is_a_favorite?(@pet1.id)).to eq(true)
-      expect(favorite.is_a_favorite?(@pet3.id)).to eq(false)
-    end
+        expect(favorite.is_a_favorite?(@pet1.id)).to eq(true)
+        expect(favorite.is_a_favorite?(@pet3.id)).to eq(false)
+      end
 
-    it "#remove_pet" do
-      favorite = Favorite.new(nil)
-      favorite.add_pet(@pet1.id)
-      favorite.add_pet(@pet2.id)
+      it "#remove_pet" do
+        favorite = Favorite.new(nil)
+        favorite.add_pet(@pet1.id)
+        favorite.add_pet(@pet2.id)
 
-      favorite.remove_pet(@pet1.id)
+        favorite.remove_pet(@pet1.id)
 
-      expect(favorite.is_a_favorite?(@pet2.id)).to eq(true)
-      expect(favorite.is_a_favorite?(@pet1.id)).to eq(false)
-    end
+        expect(favorite.is_a_favorite?(@pet2.id)).to eq(true)
+        expect(favorite.is_a_favorite?(@pet1.id)).to eq(false)
+      end
 
-    it "#remove_all" do
-      favorite = Favorite.new(nil)
-      favorite.add_pet(@pet1.id)
-      favorite.add_pet(@pet2.id)
+      it "#remove_all" do
+        favorite = Favorite.new(nil)
+        favorite.add_pet(@pet1.id)
+        favorite.add_pet(@pet2.id)
 
-      favorite.remove_all
+        favorite.remove_all
 
-      expect(favorite.is_a_favorite?(@pet2.id)).to eq(false)
-      expect(favorite.is_a_favorite?(@pet1.id)).to eq(false)
-      expect(favorite.favorite_pets.empty?).to eq(true)
-    end
+        expect(favorite.is_a_favorite?(@pet2.id)).to eq(false)
+        expect(favorite.is_a_favorite?(@pet1.id)).to eq(false)
+        expect(favorite.favorite_pets.empty?).to eq(true)
+      end
 
-    it "#id_to_object" do
-      favorite = Favorite.new(nil)
-      favorite.add_pet(@pet1.id)
-      favorite.add_pet(@pet2.id)
+      it "#id_to_object" do
+        favorite = Favorite.new(nil)
+        favorite.add_pet(@pet1.id)
+        favorite.add_pet(@pet2.id)
 
-      expect(favorite.id_to_object).to eq([@pet1, @pet2])
+        expect(favorite.id_to_object).to eq([@pet1, @pet2])
+      end
     end
   end
-end

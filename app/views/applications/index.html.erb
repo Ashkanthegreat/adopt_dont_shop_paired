@@ -10,9 +10,9 @@
   <tbody>
 
     <% @pet.applications.each do |application| %>
-      <tr>
-        <td><%= link_to application.name, "/applications/#{application.id}" %></td>
-      </tr>
+    <tr>
+      <td><%= link_to application.name, "/applications/#{application.id}" %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>

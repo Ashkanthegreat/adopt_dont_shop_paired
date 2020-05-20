@@ -13,26 +13,23 @@ describe "Favorite Pets Index Page" do
   it "Can see a Favorite indicator in the Nav bar, on any page" do
 
     visit "/shelters"
-
     expect(page).to have_content("Favorite Pets: 0")
 
     visit "/pets"
-
     expect(page).to have_content("Favorite Pets: 0")
 
     visit "/shelters/#{@shelter1.id}"
-
     expect(page).to have_content("Favorite Pets: 0")
   end
 
   it "can see all pets that have been favorited" do
+
     visit "/favorites"
 
     expect(page).to_not have_content(@pet1.name)
     expect(page).to_not have_content(@pet2.name)
 
     visit "/pets/#{@pet1.id}"
-
     click_on "Favorite #{@pet1.name}"
 
     visit "/favorites"
@@ -41,7 +38,6 @@ describe "Favorite Pets Index Page" do
     find("img[src*='#{@pet1.image}']")
 
     visit "/pets/#{@pet2.id}"
-
     click_on "Favorite #{@pet2.name}"
 
     visit "/favorites"
@@ -53,36 +49,35 @@ describe "Favorite Pets Index Page" do
   end
 
   it "links from nav bar to the favorites index page" do
-    visit "/shelters"
 
+    visit "/shelters"
     click_on "Favorite Pets: 0"
 
     expect(current_path).to eq("/favorites")
 
     visit "/pets/#{@pet1.id}"
-
     click_on "Favorite #{@pet1.name}"
 
     visit "/favorites"
-
     click_on "Favorite Pets: 1"
 
     expect(current_path).to eq("/favorites")
   end
 
   it "Cannot favoritea pet more than once" do
-    visit "/pets/#{@pet1.id}"
 
+    visit "/pets/#{@pet1.id}"
     click_on "Favorite #{@pet1.name}"
+
     expect(page).to_not have_link("Favorite #{@pet1.name}")
     expect(page).to have_link("Remove Favorite")
-
   end
 
   it "Can Remove a Pet from Favorites list" do
-    visit "/pets/#{@pet1.id}"
 
+    visit "/pets/#{@pet1.id}"
     click_on "Favorite #{@pet1.name}"
+
     expect(page).to have_content("Favorite Pets: 1")
 
     click_on "Remove Favorite"
@@ -94,8 +89,8 @@ describe "Favorite Pets Index Page" do
   end
 
   it "Can remove a favorite pet from favorite index page" do
-    visit "/pets/#{@pet1.id}"
 
+    visit "/pets/#{@pet1.id}"
     click_on "Favorite #{@pet1.name}"
     click_on "Favorite Pets: 1"
 
@@ -118,6 +113,7 @@ describe "Favorite Pets Index Page" do
   end
 
   it "Can remove all favorited pets from the index, with a button" do
+
     visit "/pets/#{@pet1.id}"
     click_on "Favorite #{@pet1.name}"
 
@@ -125,7 +121,6 @@ describe "Favorite Pets Index Page" do
     click_on "Favorite #{@pet2.name}"
 
     visit "/favorites"
-
     click_on "Remove All Favorites"
 
     expect(current_path).to eq("/favorites")
@@ -134,6 +129,7 @@ describe "Favorite Pets Index Page" do
   end
 
   it "Can see all of the pets that have at least one application on them" do
+
     visit "/favorites"
 
     expect(page).to_not have_link("Adopt Pets")
@@ -148,7 +144,6 @@ describe "Favorite Pets Index Page" do
     click_on "Favorite #{@pet3.name}"
 
     visit "/favorites"
-
     click_on "Adopt Pets"
 
     expect(current_path).to eq("/applications/new")
@@ -178,6 +173,7 @@ describe "Favorite Pets Index Page" do
   end
 
   it "Can remove the pet from the favorites list, if the pet is deleted" do
+
     visit "/pets/#{@pet1.id}"
     click_on "Favorite #{@pet1.name}"
 
@@ -188,7 +184,6 @@ describe "Favorite Pets Index Page" do
 
     within("#allFavoritePets") do
       expect(page).to_not have_content("#{@pet1.name}")
-    end
-
+    end  
   end
 end

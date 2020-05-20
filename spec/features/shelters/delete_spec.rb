@@ -29,7 +29,6 @@ describe "deleting a shelter" do
 
   it "can not delete a shelter if any pets have a 'Pending' status" do
     visit "/shelters/#{@shelter2.id}"
-
     click_on "Delete Shelter"
 
     expect(current_path).to eq("/shelters/#{@shelter2.id}")
@@ -47,7 +46,6 @@ describe "deleting a shelter" do
 
   it "can delete a shelter as long as not pets have an approved application" do
     visit "/shelters/#{@shelter1.id}"
-
     click_on "Delete Shelter"
 
     expect(current_path).to eq("/shelters/#{@shelter1.id}")
@@ -64,7 +62,6 @@ describe "deleting a shelter" do
 
   it "will delete all reviews for that shelter when the shelter is deleted" do
     visit "/shelters/#{@shelter3.id}"
-
     click_on "Delete Shelter"
 
     expect(Shelter.exists?(@shelter3.id)).to eq(false)
