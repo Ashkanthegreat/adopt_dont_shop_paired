@@ -1,0 +1,18 @@
+<h1> Applications </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @pet.applications.each do |application| %>
+      <tr>
+        <td><%= link_to application.name, "/applications/#{application.id}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

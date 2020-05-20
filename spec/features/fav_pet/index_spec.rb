@@ -5,9 +5,9 @@ describe "Favorite Pets Index Page" do
   before :each do
     @shelter1 = Shelter.create!(name: "Pups For You", address: "1808 Pup lane", city: "Denver", state: "Colorado", zip: "80027")
     @shelter2 = Shelter.create!(name: "Kitty Rescue", address: "1505 Kitty Dr.", city: "Denver", state: "Colorado", zip: "80025")
-    @pet1 = Pet.create(image: "https://pixabay.com/get/54e7dd464a55a814f1dc8460da2932761d37d6e1555874_640.jpg", name: "Rosco", approximate_age: "5", sex: "Male", shelter_id: @shelter1.id)
-    @pet2 = Pet.create(image: "https://pixabay.com/get/5ee0d44b4854b10ff3d89960c62d3f761d37dae25757_640.jpg", name: "Bob", approximate_age: "1", sex: "Male", shelter_id: @shelter1.id)
-    @pet3 = Pet.create(image: "https://pixabay.com/get/5ee0d44b4854b10ff3d89960c62d3f761d37dae25757_640.jpg", name: "Lars", approximate_age: "14", sex: "Male", shelter_id: @shelter2.id)
+    @pet1 = Pet.create(image: "https://pixabay.com/get/54e7dd464a55a814f1dc8460da2932761d37d6e1555874_640.jpg", name: "Rosco", approximate_age: "5", sex: "Male", description: "It's a pup", shelter_id: @shelter1.id)
+    @pet2 = Pet.create(image: "https://pixabay.com/get/5ee0d44b4854b10ff3d89960c62d3f761d37dae25757_640.jpg", name: "Bob", approximate_age: "1", sex: "Male", description: "It's a pup", shelter_id: @shelter1.id)
+    @pet3 = Pet.create(image: "https://pixabay.com/get/5ee0d44b4854b10ff3d89960c62d3f761d37dae25757_640.jpg", name: "Lars", approximate_age: "14", sex: "Male", description: "It's a pup", shelter_id: @shelter2.id)
   end
 
   it "Can see a Favorite indicator in the Nav bar, on any page" do
@@ -130,17 +130,65 @@ describe "Favorite Pets Index Page" do
 
     expect(current_path).to eq("/favorites")
     expect(page).to have_content("You have no favorited pets")
-    expect(page).to have_content("Favorite Pets: 0")  
+    expect(page).to have_content("Favorite Pets: 0")
+  end
+
+  it "Can see all of the pets that have at least one application on them" do
+    visit "/favorites"
+
+    expect(page).to_not have_link("Adopt Pets")
+
+    visit "/pets/#{@pet1.id}"
+    click_on "Favorite #{@pet1.name}"
+
+    visit "/pets/#{@pet2.id}"
+    click_on "Favorite #{@pet2.name}"
+
+    visit "/pets/#{@pet3.id}"
+    click_on "Favorite #{@pet3.name}"
+
+    visit "/favorites"
+
+    click_on "Adopt Pets"
+
+    expect(current_path).to eq("/applications/new")
+    check(@pet1.id)
+    check(@pet2.id)
+
+    fill_in :name, with: "Ash"
+    fill_in :address, with: "123 Main St"
+    fill_in :city, with: "Denver"
+    fill_in :state, with: "CO"
+    fill_in :zip, with: "80231"
+    fill_in :phone, with: "720-555-5555"
+    fill_in :description, with: "I am awesome!"
+
+    click_on "Submit Application"
+
+    within("#allFavoritePets") do
+      expect(page).to_not have_content(@pet1.name)
+      expect(page).to_not have_content(@pet2.name)
+    end
+
+    within("#applicationPending") do
+      expect(page).to have_content(@pet1.name)
+      expect(page).to have_content(@pet2.name)
+      expect(page).to_not have_content(@pet3.name)
+    end
+  end
+
+  it "Can remove the pet from the favorites list, if the pet is deleted" do
+    visit "/pets/#{@pet1.id}"
+    click_on "Favorite #{@pet1.name}"
+
+    visit "/pets"
+    click_on "Delete #{@pet1.name}"
+
+    visit "/favorites"
+
+    within("#allFavoritePets") do
+      expect(page).to_not have_content("#{@pet1.name}")
+    end
+
   end
 end
-
-# User Story 15, Remove all Favorite from Favorites Page
-#
-# As a visitor
-# When I have added pets to my favorites list
-# And I visit my favorites page ("/favorites")
-# I see a link to remove all favorited pets
-# When I click that link
-# I'm redirected back to the favorites page
-# I see the text saying that I have no favorited pets
-# And the favorites indicator returns to 0

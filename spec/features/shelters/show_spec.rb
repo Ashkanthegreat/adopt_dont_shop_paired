@@ -128,4 +128,6 @@ describe "Shelters show page", type: :feature do
     expect(page).to have_content("Amazing Rescue")
     expect(page).to have_content("Super friendly staff")
   end
+
+
 end

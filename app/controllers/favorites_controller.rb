@@ -2,9 +2,14 @@ class FavoritesController < ApplicationController
   include ActionView::Helpers::TextHelper
 
   def index
+    @pets_applied_for = PetApplication.all.map do |pet_app|
+      Pet.find(pet_app.pet_id)
+    end.uniq
+
     @pets = favorite.favorite_pets.map do |pet_id|
       Pet.find(pet_id)
     end
+
     if favorite.total_count == 0
       flash[:notice] = "You have no favorited pets"
     end
@@ -27,7 +32,7 @@ class FavoritesController < ApplicationController
       favorite.remove_pet(pet.id)
       session[:favorite] = favorite.favorite_pets
       flash[:notice] = "#{pet.name} has been removed from Favorites"
-    end  
+    end
     redirect_back fallback_location: "/favorites"
   end
 

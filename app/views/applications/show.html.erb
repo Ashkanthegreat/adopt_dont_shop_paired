@@ -1,0 +1,25 @@
+<h1>Pet Application</h1>
+
+<p> Name: <%= @application.name %> </p>
+<p> Address: <%= @application.address %> </p>
+<p> City: <%= @application.city %> </p>
+<p> State: <%= @application.state %> </p>
+<p> Zip: <%= @application.zip %> </p>
+<p> Phone: <%= @application.phone %> </p>
+<p> Description: <%= @application.description %> </p>
+
+<h4>Pets Applied For</h4>
+<%= form_tag("/applications/#{@application.id}/multi_approve", method: :patch) do %>
+  <% @application.pet_applications.each do |pet_app| %>
+    <section id="pet-<%=pet_app.pet.id%>">
+      <% if pet_app.pet.pet_applications.any? { |pet_app| pet_app.approved} %>
+        <%= link_to "Revoke Application", "/pets/#{pet_app.pet.id}/applications/#{@application.id}/revoke", method: :patch  %>
+      <% else %>
+        <%= check_box_tag "selected_pet_ids[]", pet_app.pet.id, false, :id => pet_app.pet.id %><br>
+        <p><%= link_to pet_app.pet.name, "/pets/#{pet_app.pet.id}", class: "siteLinks" %></p>
+        <%= link_to "Approve Application", "/pets/#{pet_app.pet.id}/applications/#{@application.id}/approve", method: :patch  %>
+        <% end %>
+    </section>
+  <% end %>
+  <%= submit_tag "Approve Selected Pets" %>
+<% end %>

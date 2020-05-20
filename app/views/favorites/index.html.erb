@@ -1,4 +1,7 @@
 <h1>Favorite Pets</h1>
+<% if @pets.length > 0 %>
+  <%= link_to "Adopt Pets", "/applications/new", class: "siteLinks" %>
+<% end %>
 <%= link_to "Remove All Favorites", "/favorites", class: "deleteLinks", method: :delete %>
 
 <section id="allFavoritePets">
@@ -14,3 +17,11 @@
     </section>
   <% end %>
 </section>
+<h1>Application Pending</h1>
+  <section id="applicationPending">
+    <% @pets_applied_for.each do |pet| %>
+
+        <p>Name: <%= link_to pet.name, "/pets/#{pet.id}", class: "siteLinks" %></p>
+
+    <% end %>
+  </section>
