@@ -15,8 +15,13 @@ class PetsController < ApplicationController
 
   def create
     shelter = Shelter.find(params[:shelter_id])
-    pet = shelter.pets.create!(pet_params)
-    redirect_to "/shelters/#{shelter.id}/pets"
+    pet = shelter.pets.new(pet_params)
+    if pet.save
+      redirect_to "/shelters/#{shelter.id}/pets"
+    else
+      flash[:error] = pet.errors.full_messages.to_sentence
+      redirect_to "/shelters/#{shelter.id}/pets/new"
+    end
   end
 
   def edit
@@ -31,15 +36,6 @@ class PetsController < ApplicationController
     pet.update(pet_params)
 
     redirect_to "/pets/#{pet.id}"
-  end
-
-  def multi_approve
-    params[:selected_pet_ids].each do |selected_pet_id|
-      selected_pet_id = selected_pet_id.to_i
-      pet = Pet.find(selected_pet_id)
-      pet.update(adoption_status: "Pending")
-    end
-    redirect_to "/favorites"
   end
 
   def destroy

@@ -60,7 +60,6 @@ class SheltersController < ApplicationController
   end
 
   def review 
-
   end
 
 end

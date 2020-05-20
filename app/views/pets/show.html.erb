@@ -1,5 +1,5 @@
 <div id="showPetContainer">
-  <%= image_tag(@pet.image, size: "300x250") %>
+  <img src="<%= @pet.image%>" width= "300", height= auto></img>
   <div class="showContainerText">
     <h1><%= link_to "#{@pet.name}", "/pets/#{@pet.id}", class: "siteLinks"  %></h1>
     <p>Description: <%= @pet.description %></p>
@@ -14,7 +14,9 @@
     <% end %>
 
     <%= link_to "Update Pet", "/pets/#{@pet.id}/edit", class: "updateLinks"  %><br>
-    <%= link_to "Delete Pet", "/pets/#{@pet.id}", class: "deleteLinks", method: :delete %><br>
+    <% if @pet.adoption_status != "Pending" %>
+      <%= link_to "Delete Pet", "/pets/#{@pet.id}", class: "deleteLinks", method: :delete %><br>
+    <% end %>
     <%= link_to "View All Applications", "/pets/#{@pet.id}/applications/index" %>
   </div>
 </div>
