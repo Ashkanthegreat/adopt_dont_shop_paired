@@ -25,7 +25,6 @@ class SheltersController < ApplicationController
       flash[:error] = shelter.errors.full_messages.to_sentence
       redirect_to "/shelters/new"
     end
-
   end
 
   def edit
@@ -34,12 +33,12 @@ class SheltersController < ApplicationController
 
   def update
     shelter = Shelter.find(params[:id])
-      if shelter.update(shelter_params)
-        redirect_to "/shelters/#{shelter.id}"
-      else
-        flash[:error] = shelter.errors.full_messages.to_sentence
-        redirect_back fallback_location: "/shelters/#{shelter.id}"
-      end
+    if shelter.update(shelter_params)
+      redirect_to "/shelters/#{shelter.id}"
+    else
+      flash[:error] = shelter.errors.full_messages.to_sentence
+      redirect_back fallback_location: "/shelters/#{shelter.id}"
+    end
   end
 
   def destroy
@@ -54,8 +53,8 @@ class SheltersController < ApplicationController
       flash[:notice] = "Can not delete this shelter"
       redirect_back fallback_location: "/shelters"
     else
-    Shelter.destroy(params[:id])
-    redirect_to "/shelters"
+      Shelter.destroy(params[:id])
+      redirect_to "/shelters"
     end
   end
 
@@ -64,5 +63,4 @@ class SheltersController < ApplicationController
   def shelter_params
     params.permit(:name, "address", :city, :state, :zip)
   end
-
 end

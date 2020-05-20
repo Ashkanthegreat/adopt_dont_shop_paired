@@ -25,7 +25,6 @@ describe "Pet show page" do
     it "can update that pet's information" do
 
       visit "pets/#{@pet1.id}"
-
       click_on "Update Pet"
 
       expect(current_path).to eq("/pets/#{@pet1.id}/edit")
@@ -36,7 +35,6 @@ describe "Pet show page" do
       click_on "Update Pet"
 
       expect(current_path).to eq("/pets/#{@pet1.id}")
-
       expect(page).to have_content("Cream colored Pom Pom")
       expect(page).to have_content("5.5")
     end
@@ -44,25 +42,21 @@ describe "Pet show page" do
     it "can delete a pet" do
 
       visit "pets/#{@pet1.id}"
-
       click_on "Delete Pet"
 
       expect(current_path).to eq("/pets")
-
       expect(page).to have_content(@pet2.name)
       expect(page).to have_content(@pet3.name)
       expect(page).to_not have_content(@pet1.name)
     end
 
     it "can favorite a pet" do
-      visit "pets/#{@pet1.id}"
 
+      visit "pets/#{@pet1.id}"
       click_on "Favorite #{@pet1.name}"
 
       expect(current_path).to eq("/pets/#{@pet1.id}")
-
       expect(page).to have_content("#{@pet1.name} has been added to your favorites list")
-
       expect(page).to have_content("Favorite Pets: 1")
     end
 
@@ -73,7 +67,6 @@ describe "Pet show page" do
       visit "/applications/#{application1.id}"
 
       expect(pet_app1.approved).to eq(false)
-
       within("#pet-#{@pet1.id}") do
         click_on "Approve Application"
       end
@@ -82,16 +75,13 @@ describe "Pet show page" do
     end
 
     it "When creating or updating a pet, it gives a flash message, if all fields are not filled in" do
+
       visit "shelters/#{@shelter1.id}/pets"
-
       click_on "Create Pet"
-
       fill_in :description, with: "Cream colored Pom Pom"
-
       click_on "Create Pet"
 
       expect(current_path).to eq("/shelters/#{@shelter1.id}/pets/new")
-
       expect(page).to have_content("Image can't be blank, Name can't be blank, Approximate age can't be blank, and Sex can't be blank")
       expect(page).to_not have_content("Description can't be blank")
 

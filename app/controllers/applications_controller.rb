@@ -14,8 +14,6 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    # binding.pry
-    # @pet_apps = @application.pet_applications.all
   end
 
   def create
@@ -34,8 +32,8 @@ class ApplicationsController < ApplicationController
         favorite.remove_pet(favorite_pet_id)
         session[:favorite] = favorite.favorite_pets
       end
-        redirect_to "/favorites"
-        flash[:notice] = "Application Submitted"
+      redirect_to "/favorites"
+      flash[:notice] = "Application Submitted"
     else
       redirect_to "/applications/new"
       flash[:notice] = "All Fields Required!"
@@ -71,9 +69,8 @@ class ApplicationsController < ApplicationController
       pet.update(adoption_status: "Pending")
       pet_app.update(approved: true)
     end
-  redirect_to "/favorites"
+    redirect_to "/favorites"
   end
-
 
   private
 

@@ -36,16 +36,16 @@ describe "Pets Index Page" do
     end
 
     it "can update a pet's info" do
-      visit "/pets"
 
+      visit "/pets"
       click_on "Update #{@pet1.name}"
 
       expect(current_path).to eq("/pets/#{@pet1.id}/edit")
     end
 
     it "can delete a pet" do
-      visit "/pets"
 
+      visit "/pets"
       click_on "Delete #{@pet1.name}"
 
       expect(current_path).to eq("/pets")
@@ -59,7 +59,7 @@ describe "Pets Index Page" do
       visit "/applications/#{@application1.id}"
 
       expect(@pet_app1.approved).to eq(false)
-
+      
       within("#pet-#{@pet1.id}") do
         click_on "Approve Application"
       end

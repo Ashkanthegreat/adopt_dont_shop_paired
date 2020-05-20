@@ -68,7 +68,6 @@ describe "Pet Applications" do
 
     click_on "Adopt Pets"
 
-    # Missing Zip Code
     check(@pet1.id)
     check(@pet2.id)
     fill_in :name, with: "Ash"
@@ -82,8 +81,6 @@ describe "Pet Applications" do
 
     expect(current_path).to eq("/applications/new")
     expect(page).to have_content("All Fields Required!")
-
-
 
     fill_in :name, with: "Ash"
     fill_in :address, with: "123 Main St"

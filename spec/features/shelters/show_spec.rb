@@ -63,13 +63,10 @@ describe "Shelters show page", type: :feature do
   end
 
   it "can delete a shelter" do
-
     visit "shelters/#{@shelter1.id}"
-
     click_on "Delete Shelter"
 
     expect(current_path).to eq("/shelters")
-
     expect(page).to have_content(@shelter2.name)
     expect(page).to_not have_content("Pups for You")
   end
@@ -85,28 +82,34 @@ describe "Shelters show page", type: :feature do
     expect(page).to have_content(@review2.content)
     expect(page).to have_content(@review1.picture)
     find("img[src*='https://imgur.com/rjS5VMO']")
-
-    # expect(page).to have_css("img[src*=#{@review2.picture}]")
   end
 
   it "can see a link to add a review" do
-  visit "shelters/#{@shelter1.id}"
+    visit "shelters/#{@shelter1.id}"
+    click_on "New Review"
 
-  click_on "New Review"
-  expect(current_path).to eq("/shelters/#{@shelter1.id}/reviews/new")
+    expect(current_path).to eq("/shelters/#{@shelter1.id}/reviews/new")
 
-  fill_in :title, with: "Good Shelter"
-  fill_in :rating, with: "4"
-  fill_in :content, with: "Caring people"
-  click_on "Submit Review"
+    fill_in :title, with: "Good Shelter"
+    fill_in :rating, with: "4"
+    click_on "Submit Review"
 
-  expect(current_path).to eq("/shelters/#{@shelter1.id}")
+    expect(current_path).to eq("/shelters/#{@shelter1.id}/reviews/new")
+    expect(page).to have_content("Review not created - Missing required fields")
 
-  review = Review.last
-  within("#review-#{review.id}") do
-    expect(page).to have_content("Good Shelter")
-    expect(page).to have_content("4")
-    expect(page).to have_content("Caring people")
+
+    fill_in :title, with: "Good Shelter"
+    fill_in :rating, with: "4"
+    fill_in :content, with: "Caring people"
+    click_on "Submit Review"
+
+    expect(current_path).to eq("/shelters/#{@shelter1.id}")
+
+    review = Review.last
+    within("#review-#{review.id}") do
+      expect(page).to have_content("Good Shelter")
+      expect(page).to have_content("4")
+      expect(page).to have_content("Caring people")
     end
   end
 
@@ -161,6 +164,4 @@ describe "Shelters show page", type: :feature do
     expect(page).to have_content("Average Review Rating: 4.75")
     expect(page).to have_content("Number of Applications: 2")
   end
-
-
 end
