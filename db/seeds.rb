@@ -32,7 +32,7 @@ Application.destroy_all
                       name:  "Pedro",
                       description: "Cuddly puppy looking for a furever home",
                       approximate_age: "<1",
-                      sex: "Male",
+                      sex: "Male", 
                       adoption_status: "adoptable",
                       shelter_id: @shelter_3.id)
 
