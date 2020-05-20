@@ -22,6 +22,9 @@ describe "deleting a shelter" do
     @pet_app4 = PetApplication.create(pet_id: @pet2.id, application_id: @application2.id, approved: true)
     @pet_app5 = PetApplication.create(pet_id: @pet5.id, application_id: @application3.id)
     @pet_app6 = PetApplication.create(pet_id: @pet6.id, application_id: @application3.id)
+
+    @review1 = @shelter3.reviews.create!(title: "Great Shelter", rating: "4.5", content: "I had an amazing experience", picture: nil)
+    @review2 = @shelter3.reviews.create!(title: "Amazing Rescue", rating: "5", content: "Super friendly staff", picture: "https://imgur.com/rjS5VMO")
   end
 
   it "can not delete a shelter if any pets have a 'Pending' status" do
@@ -37,6 +40,7 @@ describe "deleting a shelter" do
     visit "/shelters/#{@shelter3.id}"
     click_on "Delete Shelter"
 
+    expect(Shelter.exists?(@shelter3.id)).to eq(false)
     expect(Pet.exists?(@pet5.id)).to eq(false)
     expect(Pet.exists?(@pet6.id)).to eq(false)
   end
@@ -56,5 +60,15 @@ describe "deleting a shelter" do
     expect(Shelter.exists?(@shelter1.id)).to eq(false)
     expect(Pet.exists?(@pet1.id)).to eq(false)
     expect(Pet.exists?(@pet2.id)).to eq(false)
+  end
+
+  it "will delete all reviews for that shelter when the shelter is deleted" do
+    visit "/shelters/#{@shelter3.id}"
+
+    click_on "Delete Shelter"
+
+    expect(Shelter.exists?(@shelter3.id)).to eq(false)
+    expect(Review.exists?(@review1.id)).to eq(false)
+    expect(Review.exists?(@review2.id)).to eq(false)
   end
 end

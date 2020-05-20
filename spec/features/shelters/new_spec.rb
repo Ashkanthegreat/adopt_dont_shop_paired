@@ -6,11 +6,11 @@ describe "Shelters new page", type: :feature do
     visit "shelters"
     click_on "New Shelter"
 
-    fill_in "Name", with: "Pups For You"
-    fill_in "Address", with: "1808 Pup lane"
-    fill_in "City", with: "Louisville"
-    fill_in "State", with: "Colorado"
-    fill_in "Zip Code", with: "80027"
+    fill_in "name", with: "Pups For You"
+    fill_in "address", with: "1808 Pup lane"
+    fill_in "city", with: "Louisville"
+    fill_in "state", with: "Colorado"
+    fill_in "zip", with: "80027"
     click_on "Create Shelter"
 
     expect(page).to have_content("Pups For You")
