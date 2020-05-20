@@ -6,15 +6,11 @@ class ReviewsController < ApplicationController
 
   def create
     shelter = Shelter.find(params[:id])
-    # shelter.reviews.create(review_params)
-    # redirect_to "/shelters/#{shelter.id}"
     review = shelter.reviews.new(review_params)
     if review.save
       redirect_to "/shelters/#{shelter.id}"
     else
-      # flash[:error] = review.errors.full_messages.to_sentence
       flash[:notice] = "Review not created - Missing required fields"
-      # render :new
       redirect_to "/shelters/#{shelter.id}/reviews/new"
     end
   end
@@ -31,8 +27,6 @@ class ReviewsController < ApplicationController
       flash[:error] = "Review not updated: Need to fill in title, rating, and content in order to edit a shelter review"
       redirect_to "/shelters/#{review.shelter.id}/#{review.id}/edit"
     end
-    # review.update(review_params)
-    # review.save
   end
 
   def destroy
